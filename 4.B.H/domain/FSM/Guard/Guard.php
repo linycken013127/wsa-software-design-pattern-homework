@@ -2,7 +2,9 @@
 
 namespace domain\FSM\Guard;
 
-class Guard
-{
+use domain\Event\Event;
 
+abstract class Guard
+{
+    abstract public function guard(Event $event): bool;
 }

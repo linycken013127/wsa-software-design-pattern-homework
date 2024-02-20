@@ -4,8 +4,7 @@ namespace domain\Event;
 
 class Event
 {
-    private $value;
-
+    private readonly mixed $value;
 
     public function __construct(
         protected string $name
@@ -24,7 +23,7 @@ class Event
     /**
      * @return mixed
      */
-    public function getValue()
+    public function getValue(): mixed
     {
         return $this->value;
     }

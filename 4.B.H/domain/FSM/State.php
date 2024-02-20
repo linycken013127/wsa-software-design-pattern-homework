@@ -2,7 +2,6 @@
 
 namespace domain\FSM;
 
-use domain\Event\Event;
 use domain\FSM\Action\Action;
 
 class State
@@ -17,12 +16,12 @@ class State
     {
     }
 
-    public function entryAction()
+    public function entryAction(): void
     {
         $this->entryAction?->execute($this->entryAction->getEvent());
     }
 
-    public function exitAction()
+    public function exitAction(): void
     {
         $this->exitAction?->execute($this->exitAction->getEvent());
     }

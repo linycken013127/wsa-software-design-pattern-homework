@@ -57,9 +57,9 @@ $entryAction = new Transition(
 $normal->setEntryAction($entryAction);
 
 $fsm = new FiniteStateMachine(
-    $normal,
-    [],
-    [$normal, $defaultConversation],
+    state: $normal,
+    transitions: [],
+    states: [$normal, $defaultConversation],
 );
 
 dd($fsm->getState());

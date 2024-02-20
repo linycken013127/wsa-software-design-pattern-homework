@@ -21,7 +21,7 @@ class FiniteStateMachine
         }
     }
 
-    public function transition(State $state)
+    public function transition(State $state): void
     {
         $this->state->exitAction();
         $this->setState($state);
@@ -42,5 +42,15 @@ class FiniteStateMachine
     public function setState(State $state): void
     {
         $this->state = $state;
+    }
+
+    public function getTransitions(): array
+    {
+        return $this->transitions;
+    }
+
+    public function getStates(): array
+    {
+        return $this->states;
     }
 }

@@ -8,7 +8,6 @@ use domain\FSM\State;
 
 class Transition extends Action
 {
-
     public function __construct(
         private readonly State $fromState,
         Event $event,
@@ -19,7 +18,7 @@ class Transition extends Action
         parent::__construct($event, $guard);
     }
 
-    public function execute(Event $event)
+    public function execute(Event $event): void
     {
         if ($event->getName() === $this->event->getName() && $this->guard->guard($event)) {
             $this->fromState->toState($this->toState);
