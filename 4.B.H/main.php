@@ -1,10 +1,6 @@
 <?php
 
-use domain\Event\OnlineUserEvent;
-use domain\FSM\Action\Transition;
-use domain\FSM\FiniteStateMachine;
-use domain\FSM\Guard\BelowTenGuard;
-use domain\FSM\State;
+use domain\State;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -35,31 +31,9 @@ require_once __DIR__ . '/vendor/autoload.php';
 // ThanksForJoining 發生 發送遊戲結果後20() 觸發 轉移(Normal)
 // ThanksForJoining 發生 指令 == play again 觸發 傳遞訊息(KnowledgeKing is gonna start again!) 轉移(Questioning)
 
-// bot trigger event
-$normal = new State(
-    'Normal',
-);
-
-$defaultConversation = new State(
-    'DefaultConversation',
-);
-
-$onlineUserEvent = new OnlineUserEvent();
-$onlineUserEvent->setValue(9);
-
-$entryAction = new Transition(
-    $normal,
-    $onlineUserEvent,
-    new BelowTenGuard(),
-    $defaultConversation
-);
-
-$normal->setEntryAction($entryAction);
-
-$fsm = new FiniteStateMachine(
-    state: $normal,
-    transitions: [],
-    states: [$normal, $defaultConversation],
-);
-
-dd($fsm->getState());
+$normal = new State('Normal');
+$defaultConversation = new State('DefaultConversation');
+$interacting = new State('Interacting');
+$defaultConversation->setParent($normal);
+$interacting->setParent($normal);
+dd($interacting);
