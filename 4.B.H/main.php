@@ -1,5 +1,8 @@
 <?php
 
+use domain\SendMessageAction;
+use domain\SendMessageEvent;
+use domain\SendMessageGuard;
 use domain\State;
 
 require_once __DIR__ . '/vendor/autoload.php';
@@ -36,4 +39,10 @@ $defaultConversation = new State('DefaultConversation');
 $interacting = new State('Interacting');
 $defaultConversation->setParent($normal);
 $interacting->setParent($normal);
-dd($interacting);
+//dd($interacting);
+
+$sendMessageEvent = new SendMessageEvent('send');
+$sendAction = new SendMessageAction($sendMessageEvent, new SendMessageGuard());
+$normal->addActions([$sendAction]);
+
+$normal->actionHandle($sendMessageEvent);

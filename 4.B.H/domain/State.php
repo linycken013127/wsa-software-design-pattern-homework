@@ -14,4 +14,13 @@ class State extends StateComponent
     {
         dump("exitAction: {$this->name}");
     }
+
+    public function actionHandle(Event $event): void
+    {
+        foreach ($this->actions as $action) {
+            if ($action->trigger($event)) {
+                $action->execute($event);
+            }
+        }
+    }
 }
