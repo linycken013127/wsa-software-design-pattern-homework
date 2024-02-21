@@ -8,14 +8,22 @@ abstract class StateComponent
 
     public function __construct(
         protected readonly string $name,
-        protected ?StateComponent $parent = null
+        protected ?StateComponent $parent = null,
+        protected ?Action $entryAction = null,
+        protected ?Action $exitAction = null,
     )
     {
 
     }
 
-    abstract public function entryAction();
-    abstract public function exitAction();
+    public function entryAction(Event $event): StateComponent
+    {
+        return $this->entryAction?->execute($event);
+    }
+    public function exitAction(Event $event): StateComponent
+    {
+        return $this->exitAction?->execute($event);
+    }
 
     public function addActions(array $actions): void
     {
@@ -32,5 +40,29 @@ abstract class StateComponent
     public function setParent(?StateComponent $parent): void
     {
         $this->parent = $parent;
+    }
+
+    /**
+     * @param Action|null $entryAction
+     */
+    public function setEntryAction(?Action $entryAction): void
+    {
+        $this->entryAction = $entryAction;
+    }
+
+    /**
+     * @param Action|null $exitAction
+     */
+    public function setExitAction(?Action $exitAction): void
+    {
+        $this->exitAction = $exitAction;
+    }
+
+    /**
+     * @return Action|null
+     */
+    public function getEntryAction(): ?Action
+    {
+        return $this->entryAction;
     }
 }

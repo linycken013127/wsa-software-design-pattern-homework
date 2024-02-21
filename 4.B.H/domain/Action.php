@@ -16,4 +16,14 @@ abstract class Action
         return $event->getName() === $this->event->getName() && $this->guard->guard($event);
     }
     abstract public function execute();
+
+    /**
+     * @return Event
+     */
+    public function
+    getEvent(): Event
+    {
+        return $this->event;
+    }
+
 }

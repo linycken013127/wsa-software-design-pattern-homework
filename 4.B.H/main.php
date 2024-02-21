@@ -1,9 +1,13 @@
 <?php
 
+use domain\BelowTenGuard;
+use domain\BotModule\Bot;
+use domain\OnlineMemberCountEvent;
 use domain\SendMessageAction;
 use domain\SendMessageEvent;
 use domain\SendMessageGuard;
 use domain\State;
+use domain\Transition;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -34,15 +38,36 @@ require_once __DIR__ . '/vendor/autoload.php';
 // ThanksForJoining 發生 發送遊戲結果後20() 觸發 轉移(Normal)
 // ThanksForJoining 發生 指令 == play again 觸發 傳遞訊息(KnowledgeKing is gonna start again!) 轉移(Questioning)
 
-$normal = new State('Normal');
-$defaultConversation = new State('DefaultConversation');
-$interacting = new State('Interacting');
+$onlineMemberEvent = new OnlineMemberCountEvent();
+$onlineMemberEvent->setValue(9);
+
+$normal = new State(
+    name: 'Normal',
+    parent: null,
+);
+$defaultConversation = new State('DefaultConversation', $normal);
+$interacting = new State('Interacting', $normal);
+$entryTransition = new Transition(
+    fromState: $normal,
+    event: $onlineMemberEvent,
+    guard: new BelowTenGuard(),
+    toState: $defaultConversation,
+    elseToState: $interacting
+);
+$normal->setEntryAction($entryTransition);
+
 $defaultConversation->setParent($normal);
 $interacting->setParent($normal);
-//dd($interacting);
 
 $sendMessageEvent = new SendMessageEvent('send');
 $sendAction = new SendMessageAction($sendMessageEvent, new SendMessageGuard());
 $normal->addActions([$sendAction]);
 
 $normal->actionHandle($sendMessageEvent);
+
+// bot
+$bot = new Bot(state: $normal);
+dd($bot);
+
+
+

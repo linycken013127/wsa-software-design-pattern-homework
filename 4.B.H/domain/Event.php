@@ -14,4 +14,17 @@ abstract class Event
     public function getName()
     {
     }
+
+    public function setValue($value): void
+    {
+        $this->value = $value;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
 }
