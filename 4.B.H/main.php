@@ -1,10 +1,24 @@
 <?php
 
+use domain\FSM\Action\Action;
 use domain\FSM\Action\Transaction;
+use domain\FSM\Event\Event;
 use domain\FSM\FiniteStateMachine;
+use domain\FSM\Guard\EqualIntGuard;
+use domain\FSM\Guard\EqualStringGuard;
+use domain\FSM\Guard\TrueGuard;
 use domain\FSM\State\State;
 use domain\FSMFacade;
+use domain\Waterball\Action\KnowledgeGameOverAction;
+use domain\Waterball\Action\RecordReplayAction;
+use domain\Waterball\Event\AnswerCompletedEvent;
+use domain\Waterball\Event\CommandEvent;
+use domain\Waterball\Event\EmptyEvent;
+use domain\Waterball\Event\BroadcastingStateEvent;
+use domain\Waterball\Event\LoginEvent;
+use domain\Waterball\Event\LogoutEvent;
 use domain\Waterball\Event\OnlineMemberCountEvent;
+use domain\Waterball\Event\QuestioningOverTimeEvent;
 use domain\Waterball\Guard\BelowTenGuard;
 use domain\Waterball\Guard\OverTenGuard;
 use domain\Waterball\WaterballEventGetter;
@@ -48,22 +62,167 @@ $normal = new State(
 $defaultConversation = new State('DefaultConversation', $normal);
 $interacting = new State('Interacting', $normal);
 
-$fsm = new FiniteStateMachine(
-    $normal,
-    [$normal, $defaultConversation, $interacting],
-    new WaterballEventGetter(),
+$record = new State('Record', null);
+$waiting = new State('Waiting', $record);
+$recording = new State('Recording', $record);
+
+$knowledge = new State('KnowledgeKing', null);
+$questioning = new State('Questing', $knowledge);
+$thanksForJoining = new State('ThanksForJoining', $knowledge);
+
+$normalEntryAction = new Transaction(
+    fromState: $normal,
+    toState: $defaultConversation,
+    event: new EmptyEvent(),
+    guard: new TrueGuard()
+);
+$normal->setEntryAction($normalEntryAction);
+
+$defaultConversationToInteractingAction = new Transaction(
+    fromState: $defaultConversation,
+    toState: $interacting,
+    event: new LoginEvent(),
+    guard: new OverTenGuard()
 );
 
-$normal->setEntryAction(new Transaction($fsm, $normal, $defaultConversation, $onlineMemberEvent, new BelowTenGuard()));
-$defaultConversation->setActions([new Transaction($fsm, $defaultConversation, $interacting, $onlineMemberEvent, new OverTenGuard())]);
+$interactingToDefaultConversationAction = new Transaction(
+    fromState: $interacting,
+    toState: $defaultConversation,
+    event: new LogoutEvent(),
+    guard: new BelowTenGuard()
+);
 
-$fsm->fsmStart();
-dump($fsm->getState()->getName());
+$normalToRecordAction = new Transaction(
+    fromState: $normal,
+    toState: $record,
+    event: new CommandEvent(),
+    guard: new EqualStringGuard('record')
+);
 
-$onlineMemberEvent = new OnlineMemberCountEvent();
-$onlineMemberEvent->setValue(10);
 
-$fsm->trigger($onlineMemberEvent);
+$recordEntryAction = new Transaction(
+    fromState: $normal,
+    toState: $waiting,
+    event: new EmptyEvent(),
+    guard: new TrueGuard()
+);
+$waitingToRecordingAction = new Transaction(
+    fromState: $waiting,
+    toState: $recording,
+    event: new BroadcastingStateEvent(),
+    guard: new EqualStringGuard('go broadcasting')
+);
+
+$recordingToWaitingAction = new Transaction(
+    fromState: $recording,
+    toState: $normal,
+    event: new BroadcastingStateEvent(),
+    guard: new EqualStringGuard('stop broadcasting')
+);
+
+$action = new RecordReplayAction(
+    event: new CommandEvent(),
+    guard: new EqualStringGuard('stop-recording')
+);
+
+$recordToNormalExitAction = new Transaction(
+    fromState: $record,
+    toState: $normal,
+    event: new CommandEvent(),
+    guard: new EqualStringGuard('stop-recording'),
+    beforeActions: [
+        $action
+    ]
+);
+
+$normalToKnowledgeKingAction = new Transaction(
+    fromState: $normal,
+    toState: $knowledge,
+    event: new CommandEvent(),
+    guard: new EqualStringGuard('king')
+);
+
+$knowledgeEntryAction = new Transaction(
+    fromState: $normal,
+    toState: $knowledge,
+    event: new EmptyEvent(),
+    guard: new TrueGuard()
+);
+
+$questioningToThanksForJoiningAction = new Transaction(
+    fromState: $questioning,
+    toState: $thanksForJoining,
+    event: new AnswerCompletedEvent(),
+    guard: new EqualIntGuard(3)
+);
+
+$questioningOverTimeToNormalAction = new Transaction(
+    fromState: $questioning,
+    toState: $normal,
+    event: new QuestioningOverTimeEvent(),
+    guard: new EqualIntGuard(60)
+);
+
+$thanksForJoiningToQuestioningAction = new Transaction(
+    fromState: $thanksForJoining,
+    toState: $questioning,
+    event: new CommandEvent(),
+    guard: new EqualStringGuard('play again')
+);
+
+$knowledgeToNormalAction = new Transaction(
+    fromState: $knowledge,
+    toState: $normal,
+    event: new CommandEvent(),
+    guard: new EqualStringGuard('king-stop'),
+    beforeActions: [
+        new KnowledgeGameOverAction(
+            event: new EmptyEvent(),
+            guard: new TrueGuard(),
+        )
+    ]
+);
+
+//$fsm = new FiniteStateMachine(
+//    $normal,
+//    [$normal, $defaultConversation, $interacting],
+//    new WaterballEventGetter(),
+//);
+
+$facade = new FSMFacade(
+    initState: $normal,
+    transactions: [
+        $normalEntryAction,
+        $defaultConversationToInteractingAction,
+        $interactingToDefaultConversationAction,
+        $normalToRecordAction,
+        $recordEntryAction,
+        $waitingToRecordingAction,
+        $recordingToWaitingAction,
+        $recordToNormalExitAction,
+        $normalToKnowledgeKingAction,
+        $knowledgeEntryAction,
+        $questioningToThanksForJoiningAction,
+        $questioningOverTimeToNormalAction,
+        $thanksForJoiningToQuestioningAction,
+        $knowledgeToNormalAction,
+    ],
+    eventGetter: new WaterballEventGetter(),
+);
+dd($facade->getFSMState());
+
+
+//$normal->setEntryAction(new Transaction($fsm, $normal, $defaultConversation, $onlineMemberEvent, new BelowTenGuard()));
+//$defaultConversation->setActions([new Transaction($fsm, $defaultConversation, $interacting, $onlineMemberEvent, new OverTenGuard())]);
+
+//$fsm->fsmStart();
+//dump($fsm->getState()->getName());
+//
+//$onlineMemberEvent = new OnlineMemberCountEvent();
+//$onlineMemberEvent->setValue(10);
+//
 //$fsm->trigger($onlineMemberEvent);
-dd($fsm->getState()->getName());
-
+////$fsm->trigger($onlineMemberEvent);
+//dd($fsm->getState()->getName());
+//
+//$facade = new FSMFacade();

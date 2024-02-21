@@ -14,9 +14,10 @@ class WaterballEventGetter implements EventGetterInterface
     }
 
 
-    public function requestEvent(): Event
+    public function requestEvent(Event $event): Event
     {
         // TODO: 先寫死POC用
+        // 這邊要去找對應的Event取得資訊
         $event = new OnlineMemberCountEvent();
         $event->setValue(9);
         return $event;

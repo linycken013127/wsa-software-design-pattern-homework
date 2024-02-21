@@ -14,28 +14,18 @@ class FiniteStateMachine
         protected EventGetterInterface $eventGetter
     )
     {
-        $this->addStates($this->states);
+
     }
 
-    public function fsmStart(): void
+    public function start(): void
     {
-        dump('start state:');
-        dump($this->state->getName());
         $this->state->entryAction();
     }
 
-    public function addStates(array $states): void
-    {
-        foreach ($states as $state) {
-            $state->setFSM($this);
-            $this->states[$state->getName()] = $state;
-        }
-    }
-
     // TODO 這裡猜轉接
-    public function requestEvent(): Event
+    public function requestEvent(Event $event): Event
     {
-        return $this->eventGetter->requestEvent();
+        return $this->eventGetter->requestEvent($event);
     }
 
     public function trigger(Event $event): void

@@ -20,13 +20,13 @@ abstract class StateComponent
     {
     }
 
-    public function entryAction(): ?StateComponent
+    public function entryAction(): void
     {
-        return $this->entryAction?->execute();
+        $this->entryAction?->execute();
     }
-    public function exitAction(Event $event): ?StateComponent
+    public function exitAction(Event $event): void
     {
-        return $this->exitAction?->execute($event);
+        $this->exitAction?->execute($event);
     }
 
     public function addActions(array $actions): void
