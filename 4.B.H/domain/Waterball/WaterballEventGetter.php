@@ -8,6 +8,7 @@ use domain\Waterball\Event\OnlineMemberCountEvent;
 
 class WaterballEventGetter implements EventGetterInterface
 {
+    private ?Event $event = null;
 
     public function __construct()
     {
@@ -17,9 +18,22 @@ class WaterballEventGetter implements EventGetterInterface
     public function requestEvent(Event $event): Event
     {
         // TODO: 先寫死POC用
-        // 這邊要去找對應的Event取得資訊
-        $event = new OnlineMemberCountEvent();
-        $event->setValue(9);
-        return $event;
+        if ($this->event === null) {
+            $event = new OnlineMemberCountEvent();
+            $event->setValue(9);
+            $this->setEvent($event);
+        }
+
+        return $this->event;
+    }
+
+    public function getEvent(): Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(Event $event): void
+    {
+        $this->event = $event;
     }
 }

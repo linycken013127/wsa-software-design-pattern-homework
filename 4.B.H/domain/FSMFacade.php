@@ -2,6 +2,7 @@
 
 namespace domain;
 
+use domain\FSM\Event\Event;
 use domain\FSM\Event\EventGetterInterface;
 use domain\FSM\FiniteStateMachine;
 use domain\FSM\State\State;
@@ -32,6 +33,11 @@ class FSMFacade
         );
         $this->initTransactions($transactions);
         $this->FSM->start();
+    }
+
+    public function trigger(Event $event): void
+    {
+        $this->FSM->trigger($event);
     }
 
     public function getFSMState(): string

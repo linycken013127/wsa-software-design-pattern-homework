@@ -1,9 +1,6 @@
 <?php
 
-use domain\FSM\Action\Action;
 use domain\FSM\Action\Transaction;
-use domain\FSM\Event\Event;
-use domain\FSM\FiniteStateMachine;
 use domain\FSM\Guard\EqualIntGuard;
 use domain\FSM\Guard\EqualStringGuard;
 use domain\FSM\Guard\TrueGuard;
@@ -183,13 +180,9 @@ $knowledgeToNormalAction = new Transaction(
     ]
 );
 
-//$fsm = new FiniteStateMachine(
-//    $normal,
-//    [$normal, $defaultConversation, $interacting],
-//    new WaterballEventGetter(),
-//);
+$watterballEventGetter = new WaterballEventGetter();
 
-$facade = new FSMFacade(
+$fsm = new FSMFacade(
     initState: $normal,
     transactions: [
         $normalEntryAction,
@@ -207,22 +200,12 @@ $facade = new FSMFacade(
         $thanksForJoiningToQuestioningAction,
         $knowledgeToNormalAction,
     ],
-    eventGetter: new WaterballEventGetter(),
+    eventGetter: $watterballEventGetter,
 );
-dd($facade->getFSMState());
+$defaultConversation->setActions([$defaultConversationToInteractingAction]);
 
+$onlineMemberEvent->setValue(11);
+$watterballEventGetter->setEvent($onlineMemberEvent);
 
-//$normal->setEntryAction(new Transaction($fsm, $normal, $defaultConversation, $onlineMemberEvent, new BelowTenGuard()));
-//$defaultConversation->setActions([new Transaction($fsm, $defaultConversation, $interacting, $onlineMemberEvent, new OverTenGuard())]);
-
-//$fsm->fsmStart();
-//dump($fsm->getState()->getName());
-//
-//$onlineMemberEvent = new OnlineMemberCountEvent();
-//$onlineMemberEvent->setValue(10);
-//
-//$fsm->trigger($onlineMemberEvent);
-////$fsm->trigger($onlineMemberEvent);
-//dd($fsm->getState()->getName());
-//
-//$facade = new FSMFacade();
+$fsm->trigger($onlineMemberEvent);
+dd($fsm->getFSMState());
