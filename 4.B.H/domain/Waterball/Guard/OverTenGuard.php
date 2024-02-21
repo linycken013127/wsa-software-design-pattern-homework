@@ -1,9 +1,9 @@
 <?php
 
-namespace domain\Guard;
+namespace domain\Waterball\Guard;
 
-use domain\Event;
-use domain\Guard;
+use domain\FSM\Event\Event;
+use domain\FSM\Guard\Guard;
 
 class OverTenGuard extends Guard
 {

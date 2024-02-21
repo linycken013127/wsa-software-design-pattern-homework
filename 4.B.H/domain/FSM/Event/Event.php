@@ -1,6 +1,6 @@
 <?php
 
-namespace domain;
+namespace domain\FSM\Event;
 
 abstract class Event
 {

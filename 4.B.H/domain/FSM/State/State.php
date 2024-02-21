@@ -1,6 +1,8 @@
 <?php
 
-namespace domain;
+namespace domain\FSM\State;
+
+use domain\FSM\Event\Event;
 
 class State extends StateComponent
 {

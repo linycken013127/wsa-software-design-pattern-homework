@@ -1,6 +1,9 @@
 <?php
 
-namespace domain;
+namespace domain\FSM\Action;
+
+use domain\FSM\Event\Event;
+use domain\FSM\Guard\Guard;
 
 abstract class Action
 {

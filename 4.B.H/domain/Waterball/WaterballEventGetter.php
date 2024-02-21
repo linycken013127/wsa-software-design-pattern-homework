@@ -2,9 +2,9 @@
 
 namespace domain\Waterball;
 
-use domain\Event;
-use domain\FSM\EventGetterInterface;
-use domain\OnlineMemberCountEvent;
+use domain\FSM\Event\Event;
+use domain\FSM\Event\EventGetterInterface;
+use domain\Waterball\Event\OnlineMemberCountEvent;
 
 class WaterballEventGetter implements EventGetterInterface
 {

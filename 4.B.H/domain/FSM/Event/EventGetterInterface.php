@@ -1,8 +1,6 @@
 <?php
 
-namespace domain\FSM;
-
-use domain\Event;
+namespace domain\FSM\Event;
 
 interface EventGetterInterface
 {

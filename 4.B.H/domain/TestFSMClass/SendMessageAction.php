@@ -1,6 +1,9 @@
 <?php
 
-namespace domain;
+namespace domain\TestFSMClass;
+
+use domain\FSM\Action\Action;
+use domain\FSM\Event\Event;
 
 class SendMessageAction extends Action
 {

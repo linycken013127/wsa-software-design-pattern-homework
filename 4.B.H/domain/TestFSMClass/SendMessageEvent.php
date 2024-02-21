@@ -1,6 +1,8 @@
 <?php
 
-namespace domain;
+namespace domain\TestFSMClass;
+
+use domain\FSM\Event\Event;
 
 class SendMessageEvent extends Event
 {

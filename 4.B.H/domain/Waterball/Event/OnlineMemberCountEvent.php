@@ -1,6 +1,8 @@
 <?php
 
-namespace domain;
+namespace domain\Waterball\Event;
+
+use domain\FSM\Event\Event;
 
 class OnlineMemberCountEvent extends Event
 {

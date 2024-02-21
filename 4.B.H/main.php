@@ -1,11 +1,12 @@
 <?php
 
-use domain\BelowTenGuard;
+use domain\FSM\Action\Transaction;
 use domain\FSM\FiniteStateMachine;
-use domain\FSM\Transition\Transaction;
-use domain\Guard\OverTenGuard;
-use domain\OnlineMemberCountEvent;
-use domain\State;
+use domain\FSM\State\State;
+use domain\FSMFacade;
+use domain\Waterball\Event\OnlineMemberCountEvent;
+use domain\Waterball\Guard\BelowTenGuard;
+use domain\Waterball\Guard\OverTenGuard;
 use domain\Waterball\WaterballEventGetter;
 
 require_once __DIR__ . '/vendor/autoload.php';

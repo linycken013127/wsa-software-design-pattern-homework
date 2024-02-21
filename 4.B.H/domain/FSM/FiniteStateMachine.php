@@ -2,18 +2,18 @@
 
 namespace domain\FSM;
 
-use domain\Event;
-use domain\State;
+use domain\FSM\Event\Event;
+use domain\FSM\Event\EventGetterInterface;
+use domain\FSM\State\State;
 
-class FiniteStateMachine extends StateHolder
+class FiniteStateMachine
 {
     public function __construct(
-        State                          $state,
+        protected State                $state,
         protected array                $states,
         protected EventGetterInterface $eventGetter
     )
     {
-        parent::__construct($state);
         $this->addStates($this->states);
     }
 
@@ -27,7 +27,7 @@ class FiniteStateMachine extends StateHolder
     public function addStates(array $states): void
     {
         foreach ($states as $state) {
-            $state->setHolder($this);
+            $state->setFSM($this);
             $this->states[$state->getName()] = $state;
         }
     }
@@ -42,4 +42,15 @@ class FiniteStateMachine extends StateHolder
     {
         $this->state->actionHandle($event);
     }
+
+    public function setState(State $state): void
+    {
+        $this->state = $state;
+    }
+
+    public function getState(): State
+    {
+        return $this->state;
+    }
+
 }

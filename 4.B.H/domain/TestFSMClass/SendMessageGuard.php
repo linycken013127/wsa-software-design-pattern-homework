@@ -1,6 +1,9 @@
 <?php
 
-namespace domain;
+namespace domain\TestFSMClass;
+
+use domain\FSM\Event\Event;
+use domain\FSM\Guard\Guard;
 
 class SendMessageGuard extends Guard
 {

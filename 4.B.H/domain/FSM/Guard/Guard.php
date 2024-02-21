@@ -1,6 +1,8 @@
 <?php
 
-namespace domain;
+namespace domain\FSM\Guard;
+
+use domain\FSM\Event\Event;
 
 abstract class Guard
 {

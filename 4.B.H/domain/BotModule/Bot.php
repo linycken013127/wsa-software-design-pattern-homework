@@ -2,11 +2,8 @@
 
 namespace domain\BotModule;
 
-use domain\Event;
 use domain\FSM\FiniteStateMachine;
-use domain\FSM\StateHolder;
-use domain\OnlineMemberCountEvent;
-use domain\State;
+use domain\FSM\State\State;
 
 class Bot extends FiniteStateMachine
 {

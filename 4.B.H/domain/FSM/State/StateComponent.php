@@ -1,12 +1,14 @@
 <?php
 
-namespace domain;
+namespace domain\FSM\State;
 
-use domain\FSM\StateHolder;
+use domain\FSM\Action\Action;
+use domain\FSM\Event\Event;
+use domain\FSM\FiniteStateMachine;
 
 abstract class StateComponent
 {
-    protected StateHolder $holder;
+    protected FiniteStateMachine $FSM;
 
     public function __construct(
         protected readonly string $name,
@@ -68,9 +70,9 @@ abstract class StateComponent
         return $this->entryAction;
     }
 
-    public function setHolder(StateHolder $holder): void
+    public function setFSM(FiniteStateMachine $FSM): void
     {
-        $this->holder = $holder;
+        $this->FSM = $FSM;
     }
 
     public function getName(): string
