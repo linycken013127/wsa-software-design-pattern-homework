@@ -1,13 +1,12 @@
 <?php
 
 use domain\BelowTenGuard;
-use domain\BotModule\Bot;
+use domain\FSM\FiniteStateMachine;
+use domain\FSM\Transition\Transaction;
+use domain\Guard\OverTenGuard;
 use domain\OnlineMemberCountEvent;
-use domain\SendMessageAction;
-use domain\SendMessageEvent;
-use domain\SendMessageGuard;
 use domain\State;
-use domain\Transition;
+use domain\Waterball\WaterballEventGetter;
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -47,27 +46,23 @@ $normal = new State(
 );
 $defaultConversation = new State('DefaultConversation', $normal);
 $interacting = new State('Interacting', $normal);
-$entryTransition = new Transition(
-    fromState: $normal,
-    event: $onlineMemberEvent,
-    guard: new BelowTenGuard(),
-    toState: $defaultConversation,
-    elseToState: $interacting
+
+$fsm = new FiniteStateMachine(
+    $normal,
+    [$normal, $defaultConversation, $interacting],
+    new WaterballEventGetter(),
 );
-$normal->setEntryAction($entryTransition);
 
-$defaultConversation->setParent($normal);
-$interacting->setParent($normal);
+$normal->setEntryAction(new Transaction($fsm, $normal, $defaultConversation, $onlineMemberEvent, new BelowTenGuard()));
+$defaultConversation->setActions([new Transaction($fsm, $defaultConversation, $interacting, $onlineMemberEvent, new OverTenGuard())]);
 
-$sendMessageEvent = new SendMessageEvent('send');
-$sendAction = new SendMessageAction($sendMessageEvent, new SendMessageGuard());
-$normal->addActions([$sendAction]);
+$fsm->fsmStart();
+dump($fsm->getState()->getName());
 
-$normal->actionHandle($sendMessageEvent);
+$onlineMemberEvent = new OnlineMemberCountEvent();
+$onlineMemberEvent->setValue(10);
 
-// bot
-$bot = new Bot(state: $normal);
-dd($bot);
-
-
+$fsm->trigger($onlineMemberEvent);
+//$fsm->trigger($onlineMemberEvent);
+dd($fsm->getState()->getName());
 

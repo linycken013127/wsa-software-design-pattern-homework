@@ -2,25 +2,27 @@
 
 namespace domain;
 
+use domain\FSM\StateHolder;
+
 abstract class StateComponent
 {
-    protected array $actions = [];
+    protected StateHolder $holder;
 
     public function __construct(
         protected readonly string $name,
         protected ?StateComponent $parent = null,
         protected ?Action $entryAction = null,
         protected ?Action $exitAction = null,
+        protected ?array $actions = []
     )
     {
-
     }
 
-    public function entryAction(Event $event): StateComponent
+    public function entryAction(): ?StateComponent
     {
-        return $this->entryAction?->execute($event);
+        return $this->entryAction?->execute();
     }
-    public function exitAction(Event $event): StateComponent
+    public function exitAction(Event $event): ?StateComponent
     {
         return $this->exitAction?->execute($event);
     }
@@ -64,5 +66,25 @@ abstract class StateComponent
     public function getEntryAction(): ?Action
     {
         return $this->entryAction;
+    }
+
+    public function setHolder(StateHolder $holder): void
+    {
+        $this->holder = $holder;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getActions(): ?array
+    {
+        return $this->actions;
+    }
+
+    public function setActions(?array $actions): void
+    {
+        $this->actions = $actions;
     }
 }

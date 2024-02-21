@@ -2,16 +2,19 @@
 
 namespace domain\BotModule;
 
+use domain\Event;
+use domain\FSM\FiniteStateMachine;
+use domain\FSM\StateHolder;
+use domain\OnlineMemberCountEvent;
 use domain\State;
 
-class Bot
+class Bot extends FiniteStateMachine
 {
-
+    // 這邊已經用了Facade 要在想一下 Forces
     /**
      * @param State $normal
      */
     public function __construct(
-        private State $state
     )
     {
         $event = $this->state->getEntryAction()?->getEvent();
@@ -19,11 +22,4 @@ class Bot
         $this->setState($this->state->entryAction($event));
     }
 
-    /**
-     * @param State $state
-     */
-    public function setState(State $state): void
-    {
-        $this->state = $state;
-    }
 }
