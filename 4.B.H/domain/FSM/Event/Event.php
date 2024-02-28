@@ -11,9 +11,6 @@ abstract class Event
     {
     }
 
-    public function getName()
-    {
-    }
 
     public function setValue($value): void
     {
@@ -26,5 +23,13 @@ abstract class Event
     public function getValue()
     {
         return $this->value;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
     }
 }

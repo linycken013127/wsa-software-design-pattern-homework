@@ -1,5 +1,6 @@
 <?php
 
+use domain\Bot\Bot;
 use domain\FSM\Action\Transaction;
 use domain\FSM\Guard\EqualIntGuard;
 use domain\FSM\Guard\EqualStringGuard;
@@ -8,6 +9,7 @@ use domain\FSM\State\State;
 use domain\FSMFacade;
 use domain\Waterball\Action\KnowledgeGameOverAction;
 use domain\Waterball\Action\RecordReplayAction;
+use domain\Waterball\Community;
 use domain\Waterball\Event\AnswerCompletedEvent;
 use domain\Waterball\Event\CommandEvent;
 use domain\Waterball\Event\EmptyEvent;
@@ -16,6 +18,7 @@ use domain\Waterball\Event\LoginEvent;
 use domain\Waterball\Event\LogoutEvent;
 use domain\Waterball\Event\OnlineMemberCountEvent;
 use domain\Waterball\Event\QuestioningOverTimeEvent;
+use domain\Waterball\Event\StartedEvent;
 use domain\Waterball\Guard\BelowTenGuard;
 use domain\Waterball\Guard\OverTenGuard;
 use domain\Waterball\WaterballEventGetter;
@@ -204,8 +207,22 @@ $fsm = new FSMFacade(
 );
 $defaultConversation->setActions([$defaultConversationToInteractingAction]);
 
-$onlineMemberEvent->setValue(11);
-$watterballEventGetter->setEvent($onlineMemberEvent);
+//$onlineMemberEvent->setValue(11);
+//$watterballEventGetter->setEvent($onlineMemberEvent);
+//
+//$fsm->trigger($onlineMemberEvent);
 
-$fsm->trigger($onlineMemberEvent);
-dd($fsm->getFSMState());
+$bot = new Bot($fsm);
+$wsa = new Community(
+    $bot,
+    events: [
+        'started' => new StartedEvent(),
+    ]
+);
+
+while (true) {
+    // input
+    $input = readline();
+    $wsa->input($input);
+}
+

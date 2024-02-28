@@ -1,10 +1,15 @@
 {
-  "autoload": {
-    "psr-4": {
-      "domain\\": "domain/"
+    "name": "lucachaves/composer-psr-4",
+    "autoload": {
+        "psr-4": {
+            "domain\\": "domain/",
+            "tests\\": "tests/"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^10"
+    },
+    "require": {
+        "symfony/var-dumper": "^6.4"
     }
-  },
-  "require-dev": {
-    "symfony/var-dumper": "^7.0"
-  }
 }
