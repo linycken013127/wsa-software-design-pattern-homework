@@ -2,7 +2,19 @@
 
 namespace domain\FSM;
 
-class Action
+abstract class Action
 {
+    public function __construct(
+        protected Event $event,
+        protected Guard $guard
+    )
+    {
+    }
 
+    abstract public function action(): void;
+
+    public function trigger(Event $event): bool
+    {
+        return $event->getName() === $this->event->getName() && $this->guard->satisfyCriteria($event);
+    }
 }
