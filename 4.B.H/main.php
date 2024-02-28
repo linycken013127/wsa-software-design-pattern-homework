@@ -217,6 +217,8 @@ $wsa = new Community(
     $bot,
     events: [
         'started' => new StartedEvent(),
+        'login' => new LoginEvent(),
+        'logout' => new LogoutEvent(),
     ]
 );
 

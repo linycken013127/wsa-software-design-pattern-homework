@@ -39,7 +39,17 @@ class Community
         preg_match('/^\[(.*?)\](.*)$/', $input, $matches);
         if (count($matches) === 3) {
             $event = $matches[1];
-            $json = $matches[2];
+            $json = json_decode($matches[2], JSON_THROW_ON_ERROR);
+            if ($event === 'login') {
+                if (isset($json['isAdmin'], $json['userId']) && $json['isAdmin'] === true) {
+                    $this->login(new Admin($json['userId']));
+                } else if (isset($json['isAdmin'], $json['userId']) && $json['isAdmin'] === false) {
+                    $this->login(new Member($json['userId']));
+                }
+            }
+            if ($event === '10 seconds elapsed') {
+                dd($this->onlineMembers);
+            }
             $this->bot->listener($this->events[$event]);
         }
     }

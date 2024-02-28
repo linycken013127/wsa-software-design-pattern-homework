@@ -6,7 +6,7 @@ class Member
 {
     public function __construct(
         private string $id,
-        private string $name,
+//        private string $name,
     )
     {
     }
