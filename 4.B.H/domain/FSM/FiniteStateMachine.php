@@ -13,6 +13,7 @@ class FiniteStateMachine
     )
     {
         $this->state->setFsm($this);
+        $this->initTransitions();
 
         $this->state->entryAction();
     }
@@ -22,16 +23,26 @@ class FiniteStateMachine
         // 問主體 回傳帶有 Value 的 Event
         dump('還沒寫');
 //        return $event;
-        return new OnlineMemberEvent(1);
+        return new OnlineMemberEvent(11);
     }
 
     public function switchState(State $toState): void
     {
+        $this->state->exitAction();
         $this->state = $toState;
+        $this->state->entryAction();
     }
 
     public function getState(): State
     {
         return $this->state;
+    }
+
+    private function initTransitions(): void
+    {
+        foreach ($this->transitions as $transition) {
+            $transition->getFromState()?->setFsm($this);
+            $transition->getToState()?->setFsm($this);
+        }
     }
 }

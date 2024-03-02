@@ -26,12 +26,12 @@ class State
 
     public function entryAction(): void
     {
-        $this->entryAction->getEventAndTryAction();
+        $this->entryAction?->getEventAndTryAction();
     }
 
     public function exitAction(): void
     {
-        $this->exitAction->getEventAndTryAction();
+        $this->exitAction?->getEventAndTryAction();
     }
 
     public function listen(Event $event): void

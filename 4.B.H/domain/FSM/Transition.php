@@ -25,4 +25,14 @@ class Transition extends Action implements TransitionAction
     {
         $this->fromState = $fromState;
     }
+
+    public function getFromState(): ?State
+    {
+        return $this->fromState;
+    }
+
+    public function getToState(): State
+    {
+        return $this->toState;
+    }
 }

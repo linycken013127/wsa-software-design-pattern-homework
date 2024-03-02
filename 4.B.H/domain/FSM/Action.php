@@ -28,7 +28,6 @@ abstract class Action
 
     public function getEventAndTryAction(): void
     {
-
         $event = $this->state->getFsm()->eventGetter($this->event);
         $this->tryAction($event);
     }
