@@ -45,4 +45,9 @@ class FiniteStateMachine
             $transition->getToState()?->setFsm($this);
         }
     }
+
+    public function listen(Event $event): void
+    {
+        $this->state->listen($event);
+    }
 }

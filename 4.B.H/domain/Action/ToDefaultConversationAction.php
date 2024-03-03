@@ -7,7 +7,7 @@ use domain\FSM\Action;
 use domain\FSM\Event;
 use domain\FSM\Guard;
 use domain\FSM\State;
-use domain\Guard\BelowGuard;
+use domain\Guard\GreaterThanGuard;
 
 class ToDefaultConversationAction extends Action
 {

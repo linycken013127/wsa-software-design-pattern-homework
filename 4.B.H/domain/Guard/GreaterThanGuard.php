@@ -5,7 +5,7 @@ namespace domain\Guard;
 use domain\FSM\Event;
 use domain\FSM\Guard;
 
-class OverGuard implements Guard
+class GreaterThanGuard implements Guard
 {
     public function __construct(
         private readonly int $target
@@ -15,6 +15,6 @@ class OverGuard implements Guard
 
     public function guard(Event $event): bool
     {
-        return $event->getValue() >= $this->target;
+        return $event->getValue() < $this->target;
     }
 }
