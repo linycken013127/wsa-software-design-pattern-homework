@@ -2,13 +2,9 @@
 
 namespace domain\FSM;
 
-class ActionProcessor implements TransitionAction
+class ActionProcessor extends Action
 {
-    private TransitionAction $next;
-
-    public function __construct()
-    {
-    }
+    protected Transition $next;
 
     public function process(): void
     {
