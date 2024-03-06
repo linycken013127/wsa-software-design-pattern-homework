@@ -2,7 +2,7 @@
 
 namespace domain\FSM;
 
-class Transition extends Action implements TransitionAction
+class Transition extends ActionProcessor
 {
 
     public function __construct(
