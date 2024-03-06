@@ -2,40 +2,35 @@
 
 namespace domain\FSM;
 
-use domain\FSM\Event\Event;
-use domain\FSM\Event\EventGetterInterface;
-use domain\FSM\State\State;
+use domain\Event\OnlineMemberEvent;
 
 class FiniteStateMachine
 {
+
     public function __construct(
-        protected State                $state,
-        protected array                $states,
-        protected EventGetterInterface $eventGetter
+        private State $state,
+        private readonly array $transitions,
     )
     {
+        $this->state->setFsm($this);
+        $this->initTransitions();
 
-    }
-
-    public function start(): void
-    {
         $this->state->entryAction();
     }
 
-    // TODO 這裡猜轉接
-    public function requestEvent(Event $event): Event
+    public function eventGetter(Event $event): Event
     {
-        return $this->eventGetter->requestEvent($event);
+        // 問主體 回傳帶有 Value 的 Event
+        dump('還沒寫');
+//        return $event;
+        return new OnlineMemberEvent(11);
     }
 
-    public function trigger(Event $event): void
+    public function switchState(State $toState): void
     {
-        $this->state->actionHandle($event);
-    }
-
-    public function setState(State $state): void
-    {
-        $this->state = $state;
+        $this->state->exitAction();
+        $this->state = $toState;
+        $this->state->entryAction();
     }
 
     public function getState(): State
@@ -43,4 +38,16 @@ class FiniteStateMachine
         return $this->state;
     }
 
+    private function initTransitions(): void
+    {
+        foreach ($this->transitions as $transition) {
+            $transition->getFromState()?->setFsm($this);
+            $transition->getToState()?->setFsm($this);
+        }
+    }
+
+    public function listen(Event $event): void
+    {
+        $this->state->listen($event);
+    }
 }

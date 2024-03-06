@@ -1,14 +1,15 @@
 <?php
 
-namespace domain\FSM\Guard;
+namespace domain\Guard;
 
-use domain\FSM\Event\Event;
+use domain\FSM\Event;
+use domain\FSM\Guard;
 
-class EqualStringGuard extends Guard
+class StringGuard implements Guard
 {
 
     public function __construct(
-        private readonly string $target,
+        private readonly string $target
     )
     {
     }

@@ -1,12 +1,12 @@
 <?php
 
-namespace domain\FSM\Guard;
+namespace domain\Guard;
 
-use domain\FSM\Event\Event;
+use domain\FSM\Event;
+use domain\FSM\Guard;
 
-class EqualIntGuard extends Guard
+class GreaterThanGuard implements Guard
 {
-
     public function __construct(
         private readonly int $target
     )
@@ -15,6 +15,6 @@ class EqualIntGuard extends Guard
 
     public function guard(Event $event): bool
     {
-        return $event->getValue() === $this->target;
+        return $event->getValue() < $this->target;
     }
 }
