@@ -8,6 +8,10 @@ import java.util.Scanner;
 
 public class SuperRelationshipAnalyzer {
 
+    public Graph<String, DefaultEdge> getGraph() {
+        return graph;
+    }
+
     private final Graph<String, DefaultEdge> graph;
 
     public SuperRelationshipAnalyzer() {

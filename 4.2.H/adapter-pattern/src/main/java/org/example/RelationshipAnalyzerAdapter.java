@@ -1,5 +1,8 @@
 package org.example;
 
+import org.jgrapht.Graph;
+import org.jgrapht.graph.DefaultEdge;
+
 import java.util.Scanner;
 
 public class RelationshipAnalyzerAdapter implements RelationshipAnalyzer {
@@ -34,6 +37,14 @@ public class RelationshipAnalyzerAdapter implements RelationshipAnalyzer {
 
     @Override
     public String getMutualFriends(String a, String b) {
-        return null;
+        Graph<String, DefaultEdge> graph = superAnalyzer.getGraph();
+
+        StringBuilder mutualFriends = new StringBuilder();
+        for (String c : graph.vertexSet()) {
+            if (superAnalyzer.isMutualFriend(c, a, b)) {
+                mutualFriends.append(c).append(" ");
+            }
+        }
+        return mutualFriends.toString();
     }
 }
