@@ -2,7 +2,7 @@ package org.example;
 
 public class Main {
     public static void main(String[] args) {
-        RealDatabase database = new RealDatabase();
+        ProtectionDatabaseProxy database = new ProtectionDatabaseProxy("1qaz2wsx");
         VirtualEmployeeProxy employee = database.getEmployeeById(2);
         if (employee == null) {
             System.out.println("Employee not found");
