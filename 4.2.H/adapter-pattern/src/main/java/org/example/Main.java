@@ -17,7 +17,7 @@ public class Main {
         SuperRelationshipAnalyzer superAnalyzer = new SuperRelationshipAnalyzer();
 
         superAnalyzer.init(script);
-        System.out.printf("C is A and B: %s", superAnalyzer.isMutualFriend("C", "A", "B"));
+        System.out.printf("C 是否為 A 與 B 的共同好友: %s", superAnalyzer.isMutualFriend("C", "A", "B"));
     }
 
     private static void clientMain(String[] args) {
@@ -28,8 +28,9 @@ public class Main {
         SuperRelationshipAnalyzer superAnalyzer = new SuperRelationshipAnalyzer();
         RelationshipAnalyzer analyzer = new RelationshipAnalyzerAdapter(superAnalyzer);
 
-        analyzer.parse(script);
+        RelationshipGraph graph = analyzer.parse(script);
         System.out.println(analyzer.getMutualFriends("A", "B"));
+        System.out.println(graph.hasConnection("A", "B"));
     }
 
     public static String readFile(String filePath) {

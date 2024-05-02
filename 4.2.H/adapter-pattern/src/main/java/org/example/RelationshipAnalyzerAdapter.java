@@ -1,23 +1,26 @@
 package org.example;
 
-import org.jgrapht.Graph;
-import org.jgrapht.graph.DefaultEdge;
-
 import java.util.Scanner;
 
 public class RelationshipAnalyzerAdapter implements RelationshipAnalyzer {
 
     private final SuperRelationshipAnalyzer superAnalyzer;
 
+    private BasicRelationshipGraph basicRelationshipGraph;
+
     public RelationshipAnalyzerAdapter(SuperRelationshipAnalyzer superAnalyzer) {
         this.superAnalyzer = superAnalyzer;
     }
 
     @Override
-    public void parse(String script) {
+    public RelationshipGraph parse(String script) {
         script = convertToSuperScript(script);
 
         superAnalyzer.init(script);
+
+        this.basicRelationshipGraph = new BasicRelationshipGraph(superAnalyzer.getGraph());
+
+        return this.basicRelationshipGraph;
     }
 
     private String convertToSuperScript(String script) {
@@ -36,12 +39,11 @@ public class RelationshipAnalyzerAdapter implements RelationshipAnalyzer {
     }
 
     @Override
-    public String getMutualFriends(String a, String b) {
-        Graph<String, DefaultEdge> graph = superAnalyzer.getGraph();
+    public String getMutualFriends(String name1, String name2) {
 
         StringBuilder mutualFriends = new StringBuilder();
-        for (String c : graph.vertexSet()) {
-            if (superAnalyzer.isMutualFriend(c, a, b)) {
+        for (String c : this.basicRelationshipGraph.graph().vertexSet()) {
+            if (superAnalyzer.isMutualFriend(c, name1, name2)) {
                 mutualFriends.append(c).append(" ");
             }
         }

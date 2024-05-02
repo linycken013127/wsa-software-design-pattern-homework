@@ -1,7 +1,7 @@
 package org.example;
 
 interface RelationshipAnalyzer {
-    void parse(String script);
+    RelationshipGraph parse(String script);
 
-    String getMutualFriends(String a, String b);
+    String getMutualFriends(String name1, String name2);
 }

@@ -32,10 +32,7 @@ public class SuperRelationshipAnalyzer {
         scanner.close();
     }
 
-    // C 是否為 A 與 B 的共同好友
-    public boolean isMutualFriend(String c, String a, String b) {
-        System.out.println(this.graph.containsEdge(c, a));
-        System.out.println(this.graph.containsEdge(c, b));
-        return this.graph.containsEdge(c, a) && this.graph.containsEdge(c, b);
+    public boolean isMutualFriend(String targetName, String name2, String name3) {
+        return this.graph.containsEdge(targetName, name2) && this.graph.containsEdge(targetName, name3);
     }
 }
