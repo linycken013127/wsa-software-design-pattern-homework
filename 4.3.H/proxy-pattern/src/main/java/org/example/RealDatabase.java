@@ -4,18 +4,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
-import java.util.List;
+import java.util.stream.Stream;
 
 public class RealDatabase implements Database {
     private static final String FILE_NAME = "table.txt";
 
     @Override
     public VirtualEmployeeProxy getEmployeeById(int id) {
-        try {
-            // TODO 這邊 OOM 會炸
-            List<String> lines = Files.readAllLines(Paths.get(FILE_NAME));
+        try (Stream<String> linesStream = Files.lines(Paths.get(FILE_NAME))) {
 
-            return lines.stream()
+            return linesStream
                     .skip(1)
                     .map(line -> line.split(" "))
                     .filter(parts -> Integer.parseInt(parts[0]) == id)
