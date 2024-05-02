@@ -5,6 +5,11 @@ import java.io.FileReader;
 
 public class Main {
     public static void main(String[] args) {
+        clientMain(args);
+//        superMain(args);
+    }
+
+    public static void superMain(String[] args) {
         String filePath = "super-script.txt";
 
         String script = readFile(filePath);
@@ -15,7 +20,7 @@ public class Main {
         System.out.printf("C is A and B: %s", superAnalyzer.isMutualFriend("C", "A", "B"));
     }
 
-    private static void clientMain() {
+    private static void clientMain(String[] args) {
         String filePath = "script.txt";
 
         String script = readFile(filePath);
