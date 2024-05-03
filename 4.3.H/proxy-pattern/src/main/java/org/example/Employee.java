@@ -1,9 +1,11 @@
 package org.example;
 
+import java.util.List;
+
 public interface Employee {
     int getId();
     String getName();
     int getAge();
     int[] getSubordinateIds();
-    Employee[] getSubordinates();
+    List<Employee> getSubordinates();
 }

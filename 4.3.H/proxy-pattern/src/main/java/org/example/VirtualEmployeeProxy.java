@@ -1,12 +1,14 @@
 package org.example;
 
 
-import java.util.stream.IntStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class VirtualEmployeeProxy implements Employee {
     private final Database database;
     private final Employee employee;
-    private Employee[] subordinates;
+    private List<Employee> subordinates;
 
     public VirtualEmployeeProxy(Database database, int id, String name, int age, int[] subordinateIds) {
         this.employee = new RealEmployee(id, name, age, subordinateIds);
@@ -15,10 +17,9 @@ public class VirtualEmployeeProxy implements Employee {
 
     private void lazyInitializationSubordinates(){
         if (subordinates == null) {
-            subordinates = new Employee[this.employee.getSubordinateIds().length];
-
-            IntStream.range(0, this.employee.getSubordinateIds().length)
-                    .forEach(i -> subordinates[i] = database.getEmployeeById(this.employee.getSubordinateIds()[i]));
+            subordinates = new ArrayList<>();
+            Arrays.stream(employee.getSubordinateIds())
+                    .forEach(id -> subordinates.add(database.getEmployeeById(id)));
         }
     }
 
@@ -43,7 +44,7 @@ public class VirtualEmployeeProxy implements Employee {
     }
 
     @Override
-    public Employee[] getSubordinates(){
+    public List<Employee> getSubordinates(){
         lazyInitializationSubordinates();
         return subordinates;
     }

@@ -1,11 +1,13 @@
 package org.example;
 
+import java.util.List;
+
 public class RealEmployee implements Employee {
     private final int id;
     private String name;
     private int age;
     private int[] subordinateIds;
-    private Employee[] subordinates;
+    private List<Employee> subordinates;
 
     public RealEmployee(int id, String name, int age, int[] subordinateIds) {
         this.id = id;
@@ -30,7 +32,7 @@ public class RealEmployee implements Employee {
         return subordinateIds;
     }
 
-    public Employee[] getSubordinates() {
+    public List<Employee> getSubordinates() {
         return subordinates;
     }
 }
