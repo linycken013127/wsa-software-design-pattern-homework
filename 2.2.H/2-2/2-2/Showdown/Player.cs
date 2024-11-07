@@ -11,11 +11,7 @@ public abstract class Player : _2_2.Framework.Player
         SelectCard();
     }
 
-    private void SelectCard()
-    {
-        Console.WriteLine("請選擇一張牌");
-        var card = Console.ReadLine();
-    }
+    protected abstract Card SelectCard();
 
     protected abstract void Show();
 }

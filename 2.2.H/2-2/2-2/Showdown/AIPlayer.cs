@@ -7,6 +7,11 @@ public class AIPlayer: Player
         Name = "AI" + new Random().Next(10, 99);
     }
 
+    protected override Card SelectCard()
+    {
+        return null;
+    }
+
     protected override void Show()
     {
         

@@ -9,6 +9,20 @@ public class HumanPlayer : Player
         Name = Console.ReadLine() ?? throw new InvalidOperationException();
     }
 
+    protected override Card SelectCard()
+    {
+        Console.WriteLine("請選擇一張牌");
+        var index = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
+        if (index < 0 || index >= Hand.Cards.Count)
+        {
+            throw new ArgumentOutOfRangeException(nameof(index), "索引超出範圍。");
+        }
+        
+        var card = (Card)Hand.Cards[index];
+        Hand.Cards.RemoveAt(index); // 移除該卡片以避免重複抽取
+        return card;
+    }
+
     protected override void Show()
     {
         var showLine = "";
