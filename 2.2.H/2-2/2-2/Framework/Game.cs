@@ -54,7 +54,7 @@ public abstract class Game
     protected void TakeTurn()
     {
         StartTurn();
-        while (GameOver())
+        while (!GameOver())
         {
             // force
             foreach (var player in Players)

@@ -1,6 +1,6 @@
 namespace _2_2.Showdown;
 
-public class HumanPlayer: Player
+public class HumanPlayer : Player
 {
     // force 兩個遊戲重複
     public override void NameHimself()
@@ -9,14 +9,15 @@ public class HumanPlayer: Player
         Name = Console.ReadLine() ?? throw new InvalidOperationException();
     }
 
-    public override void Turn()
-    {
-        // 將所以有手牌 print 到 cli
-        
-    } 
-
     protected override void Show()
     {
-        
+        var showLine = "";
+        for (var index = 0; index < Hand.Cards.Count; index++)
+        {
+            var card = Hand.Cards[index].ToString();
+            showLine += card + "[" + index + "]" + " ";
+        }
+
+        Console.WriteLine(showLine);
     }
 }
