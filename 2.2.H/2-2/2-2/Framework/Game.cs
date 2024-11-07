@@ -47,12 +47,13 @@ public abstract class Game
         foreach (var player in Players)
         {
             player.NameHimself();
-            Console.WriteLine("Player " + player.Name + " joined the game");
+            Console.WriteLine("Player: " + player.Name + " 加入遊戲");
         }
     }
 
     protected void TakeTurn()
     {
+        StartTurn();
         while (GameOver())
         {
             // force
@@ -63,6 +64,8 @@ public abstract class Game
         }
         EndTurn();
     }
+
+    protected abstract void StartTurn();
 
     protected abstract void EndTurn();
 }

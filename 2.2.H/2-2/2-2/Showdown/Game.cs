@@ -33,7 +33,13 @@ public class Game : _2_2.Framework.Game
             Console.WriteLine("贏家：" + Winner.Name);
             return true;
         }
+        Console.WriteLine("遊戲還沒結束");
         return false;
+    }
+    
+    protected override void StartTurn()
+    {
+        Console.WriteLine("第" + Turn + "回合");
     }
 
     protected override void EndTurn()
