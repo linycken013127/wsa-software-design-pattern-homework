@@ -9,11 +9,22 @@ public class AIPlayer: Player
 
     protected override Card SelectCard()
     {
-        return null;
+        // 牌是亂的選第一張也是
+        var card = (Card)Hand.Cards[0];
+        Console.WriteLine(Name + "選擇了" + card);
+        return card;
     }
 
     protected override void Show()
     {
-        
+        var showLine = "";
+        for (var index = 0; index < Hand.Cards.Count; index++)
+        {
+            var card = Hand.Cards[index].ToString();
+            showLine += card + "[" + index + "]" + " ";
+        }
+
+        // 這邊暫時寫著因為 AI 不會顯示正常，Debug 用
+        Console.WriteLine(Name + "的手牌：" + showLine);
     }
 }
