@@ -12,6 +12,7 @@ public class AIPlayer: Player
         // 牌是亂的選第一張也是
         var card = (Card)Hand.Cards[0];
         Console.WriteLine(Name + "選擇了" + card);
+        Hand.Cards.RemoveAt(0);
         return card;
     }
 
