@@ -3,6 +3,7 @@ namespace _2_2.Framework;
 public abstract class Deck
 {
     public List<ICard> Cards { get; set; } = new List<ICard>();
+    public abstract int StartDrawCount { get; }
 
     public void Shuffle()
     {

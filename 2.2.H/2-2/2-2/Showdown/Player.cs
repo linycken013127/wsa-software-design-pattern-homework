@@ -4,7 +4,7 @@ namespace _2_2.Showdown;
 
 public abstract class Player : IPlayer
 {
-    public Hand Hand { get; set; }= new();
+    public Hand Hand { get; }= new();
     public string Name { get; set; }
     public int Point { get; private set; }
     

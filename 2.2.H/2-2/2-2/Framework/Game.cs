@@ -4,7 +4,7 @@ public abstract class Game
 {
     public List<IPlayer> Players { get; set; }
     public Deck Deck { get; set; }
-    const int DrawCount = 13;
+    
     public Dictionary<IPlayer, ICard> TurnCards { get; set; } = new();
 
     public void Start()
@@ -31,7 +31,7 @@ public abstract class Game
 
     private void Draw()
     {
-        for (var i = 0; i < DrawCount; i++)
+        for (var i = 0; i < Deck.StartDrawCount; i++)
         {
             // force
             foreach (var player in Players)

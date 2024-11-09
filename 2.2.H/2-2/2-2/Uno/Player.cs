@@ -4,26 +4,24 @@ namespace _2_2.Uno;
 
 public abstract class Player: IPlayer
 {
-    public Hand Hand { get; }
+    public Hand Hand { get; } = new();
     public string Name { get; set; }
     public abstract void NameHimself();
 
     public ICard Turn()
     {
-        Console.WriteLine("出牌");
-        return null;
+        Console.WriteLine("輪到" + Name + "了");
+        Show();
+        return SelectCard();
     }
 
     protected Card SelectCard()
     {
-        Console.WriteLine("請選擇一張牌");
-        return null;
+        var card = (Card)Hand.Cards[0];
+        Console.WriteLine(Name + "選擇了" + card);
+        Hand.Cards.RemoveAt(0);
+        return card;
     }
 
-    protected void Show()
-    {
-        Console.WriteLine("顯示手牌");
-    }
-    
-    
+    protected abstract void Show();
 }
