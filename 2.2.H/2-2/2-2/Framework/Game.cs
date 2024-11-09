@@ -53,6 +53,7 @@ public abstract class Game
     // 主要流程
     private void TakeTurn()
     {
+        FirstTurn();
         while (!GameOver())
         {
             StartTurn();
@@ -64,6 +65,8 @@ public abstract class Game
             EndTurn();
         }
     }
+
+    protected abstract void FirstTurn();
 
     protected abstract void StartTurn();
 

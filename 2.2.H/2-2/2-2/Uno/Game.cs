@@ -2,6 +2,7 @@ namespace _2_2.Uno;
 
 public class Game: _2_2.Framework.Game
 {
+    public Card TopCard { get; set; } 
         
     public Game(List<Player> players)
     {
@@ -14,9 +15,14 @@ public class Game: _2_2.Framework.Game
         return Players.Any(player => player.Hand.Cards.Count == 0);
     }
 
+    protected override void FirstTurn()
+    {
+        TopCard = (Card)Deck.Draw();
+    }
+
     protected override void StartTurn()
     {
-        Console.WriteLine("開始回合");
+        Console.WriteLine("Top card: " + TopCard);
     }
 
     protected override void EndTurn()
