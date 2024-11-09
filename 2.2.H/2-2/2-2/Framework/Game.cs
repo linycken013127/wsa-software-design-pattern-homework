@@ -55,9 +55,9 @@ public abstract class Game
     // 主要流程
     private void TakeTurn()
     {
-        StartTurn();
         while (!GameOver())
         {
+            StartTurn();
             // force
             foreach (var player in Players)
             {

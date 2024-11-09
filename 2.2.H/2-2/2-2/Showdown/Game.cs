@@ -49,7 +49,7 @@ public class Game : _2_2.Framework.Game
         foreach (var playerCard in TurnCards)
         {
             var card = (Card)playerCard.Value;
-            Console.WriteLine("計算當局贏家: Player: " + playerCard.Key.Name + " played " + card);
+            Console.WriteLine("計算: Player: " + playerCard.Key.Name + " played " + card);
             if (topCard == null || card.CompareTo(topCard) > 0)
             {
                 topCard = card;
@@ -58,6 +58,12 @@ public class Game : _2_2.Framework.Game
         }
         Console.WriteLine("當局贏家: " + turnWinner.Name);
         turnWinner.GainPoint();
+
+        foreach (var player in Players.Cast<Player>())
+        {
+            Console.WriteLine("Player: " + player.Name + " has " + player.Point + " points");
+        }
+        Winner = Players.Cast<Player>().OrderByDescending(player => player.Point).First();
         
         TurnCards.Clear();
         Turn++;
