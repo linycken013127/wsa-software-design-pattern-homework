@@ -10,13 +10,23 @@ public class HumanPlayer: Player
     
     protected override Card SelectCard()
     {
-        Console.WriteLine("請選擇一張牌");
+        Console.WriteLine("請選擇一張牌或按D抽牌");
 
-        var index = InputSelectIndex();
+        // force func 內重複
+        var action = InputSelectIndex();
+        if (action == "D" || action == "d")
+        {
+            return AutoDraw();
+        }
+        var index = int.Parse(action);
         while (CheckHandCardRange(index) || !Game.RuleCheck((Card)Hand.Cards[index]))
         {
             Console.WriteLine("請輸入正確的數字");
-            index = InputSelectIndex();
+            action = InputSelectIndex();
+            if (action == "D" || action == "d")
+            {
+                return AutoDraw();
+            }
         }
         
         var card = (Card)Hand.Cards[index];
@@ -29,9 +39,9 @@ public class HumanPlayer: Player
         return index < 0 || index >= Hand.Cards.Count;
     }
 
-    private int InputSelectIndex()
+    private string InputSelectIndex()
     {
-        return int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
+        return Console.ReadLine() ?? throw new InvalidOperationException();
     }
 
     // force 重複

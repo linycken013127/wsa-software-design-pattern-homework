@@ -22,4 +22,18 @@ public abstract class Player: IPlayer
     protected abstract Card SelectCard();
 
     protected abstract void Show();
+    
+    protected Card AutoDraw()
+    {
+        while (true)
+        {
+            var drawCard = Game.PlayerDraw();
+            Console.WriteLine("抽到了" + drawCard);
+            if (Game.RuleCheck(drawCard))
+            {
+                return drawCard;
+            }
+            Hand.AddCard(drawCard);
+        }
+    } 
 }

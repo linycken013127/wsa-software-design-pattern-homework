@@ -9,7 +9,6 @@ public abstract class Game
 
     public void Start()
     {
-        Console.WriteLine("Showdown started");
         Deck.Init();
         NameHimself();
         Deck.Shuffle();

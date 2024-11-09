@@ -8,13 +8,19 @@ public class AIPlayer: Player
         Name = "AI" + new Random().Next(10, 99);
     }
 
-    // force 重複
     protected override Card SelectCard()
     {
-        var card = (Card)Hand.Cards[0];
-        Console.WriteLine(Name + "選擇了" + card);
-        Hand.Cards.RemoveAt(0);
-        return card;
+        for (var index = 0; index < Hand.Cards.Count; index++)
+        {
+            var card = (Card)Hand.Cards[index];
+            if (card.Color == Game.TopCard.Color || card.Rank == Game.TopCard.Rank)
+            {
+                Hand.Cards.RemoveAt(index);
+                return card;
+            }
+        }
+
+        return AutoDraw();
     }
     
     // debug 可清空

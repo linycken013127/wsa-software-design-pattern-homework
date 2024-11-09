@@ -47,4 +47,17 @@ public class Game: _2_2.Framework.Game
     {
         return card.Rank == TopCard.Rank || card.Color == TopCard.Color;
     }
+
+    public Card PlayerDraw()
+    {
+        // 檢查牌堆是否還有牌
+        if (Deck.Cards.Count == 0)
+        {
+            Deck.Init(); // todo 要重置牌面
+            Deck.Shuffle();
+        }
+        var card = (Card)Deck.Draw();
+        Console.WriteLine("抽了一張牌: " + card);
+        return card;
+    }
 }
