@@ -3,6 +3,8 @@ namespace _2_2.Showdown;
 public abstract class Player : _2_2.Framework.Player
 {
     public int Point { get; set; } = 0;
+    
+    // 這個用法怪怪的 Player 應該該 interface
     public abstract override void NameHimself();
 
 

@@ -2,12 +2,9 @@ using _2_2.Framework;
 
 namespace _2_2.Uno;
 
-public class Player: _2_2.Framework.Player
+public abstract class Player: _2_2.Framework.Player
 {
-    public override void NameHimself()
-    {
-        Console.WriteLine("命名");
-    }
+    public abstract override void NameHimself();
 
     public override ICard Turn()
     {
