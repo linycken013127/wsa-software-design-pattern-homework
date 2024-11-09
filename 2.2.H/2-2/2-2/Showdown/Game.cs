@@ -5,12 +5,12 @@ public class Game : _2_2.Framework.Game
     public int Turn { get; set; } = 1;
     const int TotalTurn = 13;
 
-    public Player? Winner { get; set; } = null;
+    public Player? Winner { get; set; }
     
-    public Game(List<Player> players, Deck deck)
+    public Game(List<Player> players)
     {
         Players = players.Cast<_2_2.Framework.Player>().ToList();
-        Deck = deck;
+        Deck = new Deck();
     }
 
     protected override void InitDeck()

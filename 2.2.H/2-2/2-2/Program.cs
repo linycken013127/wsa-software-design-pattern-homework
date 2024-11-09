@@ -12,8 +12,7 @@ if (selectGame == "1")
     var p3 = new AIPlayer();
     var p4 = new AIPlayer();
     List<Player> players = [p1, p2, p3, p4];
-    var deck = new Deck();
-    var game = new Game(players, deck);
+    var game = new Game(players);
     game.Start();
 } else if (selectGame == "2")
 {
