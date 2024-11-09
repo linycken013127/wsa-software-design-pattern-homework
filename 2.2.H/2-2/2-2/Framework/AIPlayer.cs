@@ -1,9 +1,14 @@
 // namespace _2_2.Framework;
 //
-// abstract public class AIPlayer : Player
+// public abstract class AIPlayer : IPlayer
 // {
-//     public override void NameHimself()
+//     public abstract Hand Hand { get; }
+//     public abstract string Name { get; set; }
+//
+//     public void NameHimself()
 //     {
 //         Name = "AI" + new Random().Next(10, 99);
 //     }
+//
+//     public abstract ICard Turn();
 // }

@@ -2,10 +2,10 @@ namespace _2_2.Framework;
 
 public abstract class Game
 {
-    public List<Player> Players { get; set; }
+    public List<IPlayer> Players { get; set; }
     public Deck Deck { get; set; }
     const int DrawCount = 13;
-    public Dictionary<Player, ICard> TurnCards { get; set; } = new();
+    public Dictionary<IPlayer, ICard> TurnCards { get; set; } = new();
 
     public void Start()
     {

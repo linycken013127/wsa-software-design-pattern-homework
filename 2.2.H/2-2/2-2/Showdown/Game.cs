@@ -9,7 +9,7 @@ public class Game : _2_2.Framework.Game
     
     public Game(List<Player> players)
     {
-        Players = players.Cast<_2_2.Framework.Player>().ToList();
+        Players = players.Cast<Framework.IPlayer>().ToList();
         Deck = new Deck();
     }
 

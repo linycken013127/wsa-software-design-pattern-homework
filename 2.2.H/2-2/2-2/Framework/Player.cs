@@ -1,13 +1,13 @@
 namespace _2_2.Framework;
 
 
-public abstract class Player
+public interface IPlayer
 {
 
-    public Hand Hand { get; set; } = new();
-    public string Name { get; set; }
+    Hand Hand { get; }
+    string Name { get; set; }
 
-    public abstract void NameHimself();
+    void NameHimself();
 
-    public abstract ICard Turn();
+    public ICard Turn();
 }

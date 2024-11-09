@@ -1,19 +1,22 @@
+using _2_2.Framework;
+
 namespace _2_2.Showdown;
 
-public abstract class Player : _2_2.Framework.Player
+public abstract class Player : IPlayer
 {
-    public int Point { get; set; } = 0;
+    public Hand Hand { get; set; }= new();
+    public string Name { get; set; }
+    public int Point { get; private set; }
     
-    // 這個用法怪怪的 Player 應該該 interface
-    public abstract override void NameHimself();
+    public abstract void NameHimself();
 
-
-    public override Card Turn()
+    public ICard Turn()
     {
         Console.WriteLine("輪到" + Name + "了");
         Show();
         return SelectCard();
     }
+    
 
     protected abstract Card SelectCard();
 
