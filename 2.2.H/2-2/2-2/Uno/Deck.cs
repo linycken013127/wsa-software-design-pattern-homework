@@ -13,12 +13,5 @@ public class Deck: _2_2.Framework.Deck
                 AddCard(new Card((Rank)rank, (Color)suit));
             }
         }
-        
-        // debug
-        Console.WriteLine("牌庫已初始化");
-        foreach (var card in Cards)
-        {
-            Console.WriteLine(card);
-        }
     }
 }
