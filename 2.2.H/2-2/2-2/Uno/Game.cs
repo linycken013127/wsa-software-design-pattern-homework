@@ -18,7 +18,11 @@ public class Game: _2_2.Framework.Game
 
     protected override bool GameOver()
     {
-        return Players.Any(player => player.Hand.Cards.Count == 0);
+        var winner = Players.Cast<Player>().FirstOrDefault(player => player.Hand.Cards.Count == 0);
+        if (winner == null) return false;
+        
+        Console.WriteLine("贏家: " + winner.Name);
+        return true;
     }
 
     protected override void ShowCard(IPlayer player)
