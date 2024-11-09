@@ -1,3 +1,5 @@
+using _2_2.Framework;
+
 namespace _2_2.Showdown;
 
 public class Game : _2_2.Framework.Game
@@ -22,6 +24,11 @@ public class Game : _2_2.Framework.Game
         }
         Console.WriteLine("遊戲還沒結束");
         return false;
+    }
+
+    protected override void ShowCard(IPlayer player)
+    {
+        TurnCards.Add(player, player.Turn());
     }
 
     protected override void FirstTurn()

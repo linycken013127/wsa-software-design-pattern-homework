@@ -60,11 +60,13 @@ public abstract class Game
             // force
             foreach (var player in Players)
             {
-                TurnCards.Add(player, player.Turn());
+                ShowCard(player);
             }
             EndTurn();
         }
     }
+
+    protected abstract void ShowCard(IPlayer player);
 
     protected abstract void FirstTurn();
 
