@@ -4,6 +4,19 @@ public class Deck: _2_2.Framework.Deck
 {
     public override void Init()
     {
-        Console.WriteLine("建立牌組");
+        foreach (var rank in Enum.GetValues(typeof(Rank)))
+        {
+            foreach (var suit in Enum.GetValues(typeof(Color)))
+            {
+                AddCard(new Card((Rank)rank, (Color)suit));
+            }
+        }
+        
+        // debug
+        Console.WriteLine("牌庫已初始化");
+        foreach (var card in Cards)
+        {
+            Console.WriteLine(card);
+        }
     }
 }

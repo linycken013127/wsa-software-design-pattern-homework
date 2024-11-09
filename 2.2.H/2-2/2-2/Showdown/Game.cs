@@ -13,11 +13,6 @@ public class Game : _2_2.Framework.Game
         Deck = new Deck();
     }
 
-    protected override void InitDeck()
-    {
-        Deck.Init();
-    }
-
     protected override bool GameOver()
     {
         if (Turn > TotalTurn)

@@ -26,5 +26,6 @@ public abstract class Deck
         Cards.Add(card);
     }
 
+    // force 兩個遊戲重複
     public abstract void Init();
 }

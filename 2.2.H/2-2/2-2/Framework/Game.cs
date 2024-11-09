@@ -9,15 +9,13 @@ public abstract class Game
 
     public void Start()
     {
-        Deck.Init();
-        Deck.Shuffle();
         Console.WriteLine("Showdown started");
+        Deck.Init();
         NameHimself();
+        Deck.Shuffle();
         Draw();
         TakeTurn();
     }
-
-    protected abstract void InitDeck();
 
     protected abstract bool GameOver();
 
