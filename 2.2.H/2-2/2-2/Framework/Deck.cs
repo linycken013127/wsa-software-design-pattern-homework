@@ -14,8 +14,7 @@ public abstract class Deck
     {
         if (Cards.Count == 0)
         {
-            Console.WriteLine("fuck");
-            throw new InvalidOperationException("No cards left in the deck to draw.");
+            return null;
         }
         var card = Cards[0];
         Cards.RemoveAt(0);

@@ -1,0 +1,31 @@
+namespace _2_2.Uno;
+
+public class Game: _2_2.Framework.Game
+{
+    public Game(List<Player> players)
+    {
+        Players = players.Cast<_2_2.Framework.Player>().ToList();
+        Deck = new Deck();
+    }
+
+    
+    protected override void InitDeck()
+    {
+        Console.WriteLine("建立牌組");
+    }
+
+    protected override bool GameOver()
+    {
+        return true;
+    }
+
+    protected override void StartTurn()
+    {
+        Console.WriteLine("開始回合");
+    }
+
+    protected override void EndTurn()
+    {
+        Console.WriteLine("結束回合");
+    }
+}
