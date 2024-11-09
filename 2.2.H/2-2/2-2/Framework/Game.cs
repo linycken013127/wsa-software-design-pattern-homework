@@ -5,6 +5,7 @@ public abstract class Game
     public List<Player> Players { get; set; }
     public Deck Deck { get; set; }
     const int DrawCount = 13;
+    public Dictionary<Player, ICard> TurnCards { get; set; } = new();
 
     public void Start()
     {
@@ -30,7 +31,7 @@ public abstract class Game
         }
     }
 
-    protected void Draw()
+    private void Draw()
     {
         for (var i = 0; i < DrawCount; i++)
         {
@@ -42,7 +43,7 @@ public abstract class Game
         }
     }
 
-    protected void NameHimself()
+    private void NameHimself()
     {
         foreach (var player in Players)
         {
@@ -51,7 +52,8 @@ public abstract class Game
         }
     }
 
-    protected void TakeTurn()
+    // 主要流程
+    private void TakeTurn()
     {
         StartTurn();
         while (!GameOver())
@@ -59,10 +61,10 @@ public abstract class Game
             // force
             foreach (var player in Players)
             {
-                player.Turn();
+                TurnCards.Add(player, player.Turn());
             }
+            EndTurn();
         }
-        EndTurn();
     }
 
     protected abstract void StartTurn();

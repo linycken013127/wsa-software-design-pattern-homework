@@ -44,6 +44,22 @@ public class Game : _2_2.Framework.Game
 
     protected override void EndTurn()
     {
+        var topCard = null as Card;
+        var turnWinner = null as Player;
+        foreach (var playerCard in TurnCards)
+        {
+            var card = (Card)playerCard.Value;
+            Console.WriteLine("計算當局贏家: Player: " + playerCard.Key.Name + " played " + card);
+            if (topCard == null || card.CompareTo(topCard) > 0)
+            {
+                topCard = card;
+                turnWinner = (Player)playerCard.Key;
+            }
+        }
+        Console.WriteLine("當局贏家: " + turnWinner.Name);
+        turnWinner.GainPoint();
+        
+        TurnCards.Clear();
         Turn++;
     }
 }

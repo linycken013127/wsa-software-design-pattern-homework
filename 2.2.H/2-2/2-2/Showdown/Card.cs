@@ -2,7 +2,7 @@ using _2_2.Framework;
 
 namespace _2_2.Showdown;
 
-public record class  Card(Rank Rank, Suit Suit) : ICard, IComparable<Card>
+public record Card(Rank Rank, Suit Suit) : ICard, IComparable<Card>
 {
 
     public int CompareTo(Card? other)

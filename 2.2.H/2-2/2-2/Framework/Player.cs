@@ -9,5 +9,5 @@ public abstract class Player
 
     public abstract void NameHimself();
 
-    public abstract void Turn();
+    public abstract ICard Turn();
 }
