@@ -8,12 +8,6 @@ public class Game: _2_2.Framework.Game
         Deck = new Deck();
     }
 
-    
-    protected override void InitDeck()
-    {
-        Console.WriteLine("建立牌組");
-    }
-
     protected override bool GameOver()
     {
         return true;
