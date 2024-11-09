@@ -28,7 +28,7 @@ public class Game : _2_2.Framework.Game
 
     protected override bool GameOver()
     {
-        if (Turn == END_TURN)
+        if (Turn > END_TURN)
         {
             Console.WriteLine("贏家：" + Winner.Name);
             return true;
