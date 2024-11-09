@@ -1,11 +1,13 @@
 namespace _2_2.Uno;
 
-public class Card(Rank rank, Color color) : Framework.ICard
+public record Card(Rank Rank, Color Color) : Framework.ICard
 {
+    public Rank Rank { get; } = Rank;
+    public Color Color { get; } = Color;
 
     public override string ToString()
     {
-        var rankSymbol = rank switch
+        var rankSymbol = Rank switch
         {
             Rank.Zero => "0",
             Rank.One => "1",
@@ -17,16 +19,16 @@ public class Card(Rank rank, Color color) : Framework.ICard
             Rank.Seven => "7",
             Rank.Eight => "8",
             Rank.Nine => "9",
-            _ => rank.ToString()
+            _ => Rank.ToString()
         };
         
-        var colorSymbol = color switch
+        var colorSymbol = Color switch
         {
             Color.Red => "R",
             Color.Yellow => "Y",
             Color.Green => "G",
             Color.Blue => "B",
-            _ => color.ToString()
+            _ => Color.ToString()
         };
 
         return rankSymbol + colorSymbol;

@@ -4,6 +4,7 @@ namespace _2_2.Uno;
 
 public abstract class Player: IPlayer
 {
+    public Game Game { get; set; }
     public Hand Hand { get; } = new();
     public string Name { get; set; }
     public abstract void NameHimself();

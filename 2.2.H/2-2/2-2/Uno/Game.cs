@@ -9,6 +9,10 @@ public class Game: _2_2.Framework.Game
     public Game(List<Player> players)
     {
         Players = players.Cast<Framework.IPlayer>().ToList();
+        foreach (var player in Players.Cast<Player>())
+        {
+            player.Game = this;
+        }
         Deck = new Deck();
     }
 
@@ -37,5 +41,10 @@ public class Game: _2_2.Framework.Game
     {
         TurnCards.Clear();
         Console.WriteLine("結束回合");
+    }
+
+    public bool RuleCheck(Card card)
+    {
+        return card.Rank == TopCard.Rank || card.Color == TopCard.Color;
     }
 }

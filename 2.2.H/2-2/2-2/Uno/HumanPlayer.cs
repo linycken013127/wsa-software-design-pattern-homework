@@ -8,23 +8,32 @@ public class HumanPlayer: Player
         Name = Console.ReadLine() ?? throw new InvalidOperationException();
     }
     
-    // todo 查合法
     protected override Card SelectCard()
     {
         Console.WriteLine("請選擇一張牌");
 
-        var index = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
-        while (index < 0 || index >= Hand.Cards.Count)
+        var index = InputSelectIndex();
+        while (CheckHandCardRange(index) || !Game.RuleCheck((Card)Hand.Cards[index]))
         {
             Console.WriteLine("請輸入正確的數字");
-            index = int.Parse(Console.ReadLine() ?? throw new InvalidOperationException()); // 醜
+            index = InputSelectIndex();
         }
         
         var card = (Card)Hand.Cards[index];
         Hand.Cards.RemoveAt(index); // 移除該卡片以避免重複抽取
         return card;
     }
-    
+
+    private bool CheckHandCardRange(int index)
+    {
+        return index < 0 || index >= Hand.Cards.Count;
+    }
+
+    private int InputSelectIndex()
+    {
+        return int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
+    }
+
     // force 重複
     protected override void Show()
     {
