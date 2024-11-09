@@ -1,11 +1,9 @@
-using _2_2.Framework;
-
 namespace _2_2.Showdown;
 
 public class Game : _2_2.Framework.Game
 {
     public int Turn { get; set; } = 1;
-    const int END_TURN = 13;
+    const int TotalTurn = 13;
 
     public Player? Winner { get; set; } = null;
     
@@ -17,18 +15,12 @@ public class Game : _2_2.Framework.Game
 
     protected override void InitDeck()
     {
-        foreach (var rank in Enum.GetValues(typeof(Rank)))
-        {
-            foreach (var suit in Enum.GetValues(typeof(Suit)))
-            {
-                Deck.AddCard(new Card((Rank)rank, (Suit)suit));
-            }
-        }
+        Deck.Init();
     }
 
     protected override bool GameOver()
     {
-        if (Turn > END_TURN)
+        if (Turn > TotalTurn)
         {
             Console.WriteLine("贏家：" + Winner.Name);
             return true;

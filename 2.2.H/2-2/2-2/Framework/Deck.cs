@@ -1,6 +1,6 @@
 namespace _2_2.Framework;
 
-public class Deck
+public abstract class Deck
 {
     public List<ICard> Cards { get; set; } = new List<ICard>();
 
@@ -26,4 +26,6 @@ public class Deck
     {
         Cards.Add(card);
     }
+
+    public abstract void Init();
 }

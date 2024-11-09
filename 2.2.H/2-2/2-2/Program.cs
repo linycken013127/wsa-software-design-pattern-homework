@@ -1,15 +1,6 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-
-using _2_2.Framework;
-using _2_2.Showdown;
+﻿using _2_2.Showdown;
 using Game = _2_2.Showdown.Game;
 using Player = _2_2.Showdown.Player;
-
-// var card = new Card(Rank.Ace, Suit.Club);
-// Console.WriteLine(card);
-
-
 
 var p1 = new HumanPlayer();
 var p2 = new AIPlayer();
