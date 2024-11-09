@@ -7,6 +7,15 @@ public class AIPlayer: Player
         // force 重複
         Name = "AI" + new Random().Next(10, 99);
     }
+
+    // force 重複
+    protected override Card SelectCard()
+    {
+        var card = (Card)Hand.Cards[0];
+        Console.WriteLine(Name + "選擇了" + card);
+        Hand.Cards.RemoveAt(0);
+        return card;
+    }
     
     // debug 可清空
     protected override void Show()
