@@ -18,13 +18,12 @@ public abstract class Game
 
     protected abstract bool GameOver();
 
-    // TODO 樣板
-    private void Turn()
+    private void NameHimself()
     {
-        // param: action
         foreach (var player in Players)
         {
-            // action(player);
+            player.NameHimself();
+            Console.WriteLine("Player: " + player.Name + " 加入遊戲");
         }
     }
 
@@ -40,15 +39,6 @@ public abstract class Game
         }
     }
 
-    private void NameHimself()
-    {
-        foreach (var player in Players)
-        {
-            player.NameHimself();
-            Console.WriteLine("Player: " + player.Name + " 加入遊戲");
-        }
-    }
-
     // 主要流程
     private void TakeTurn()
     {
@@ -59,13 +49,13 @@ public abstract class Game
             // force
             foreach (var player in Players)
             {
-                ShowCard(player);
+                Play(player);
             }
             EndTurn();
         }
     }
 
-    protected abstract void ShowCard(IPlayer player);
+    protected abstract void Play(IPlayer player);
 
     protected abstract void FirstTurn();
 

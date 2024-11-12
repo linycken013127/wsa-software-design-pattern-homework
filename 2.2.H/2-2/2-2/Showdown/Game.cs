@@ -11,22 +11,19 @@ public class Game : _2_2.Framework.Game
     
     public Game(List<Player> players)
     {
-        Players = players.Cast<Framework.IPlayer>().ToList();
+        Players = players.Cast<IPlayer>().ToList();
         Deck = new Deck();
     }
 
     protected override bool GameOver()
     {
-        if (Turn > TotalTurn)
-        {
-            Console.WriteLine("贏家：" + Winner.Name);
-            return true;
-        }
-        Console.WriteLine("遊戲還沒結束");
-        return false;
+        if (Turn <= TotalTurn) return false;
+        
+        Console.WriteLine("贏家：" + Winner.Name);
+        return true;
     }
 
-    protected override void ShowCard(IPlayer player)
+    protected override void Play(IPlayer player)
     {
         TurnCards.Add(player, player.Turn());
     }

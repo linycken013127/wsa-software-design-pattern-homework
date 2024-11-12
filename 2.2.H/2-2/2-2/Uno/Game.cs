@@ -25,7 +25,7 @@ public class Game: _2_2.Framework.Game
         return true;
     }
 
-    protected override void ShowCard(IPlayer player)
+    protected override void Play(IPlayer player)
     {
         var card = player.Turn();
         TopCard = (Card)card;
