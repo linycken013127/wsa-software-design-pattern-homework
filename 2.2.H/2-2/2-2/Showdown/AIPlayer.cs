@@ -7,7 +7,7 @@ public class AIPlayer: Player
         Name = "AI" + new Random().Next(10, 99);
     }
 
-    protected override Card SelectCard()
+    public override Card SelectCard()
     {
         var card = Hand.Cards[0];
         Console.WriteLine(Name + "選擇了" + card);
@@ -15,16 +15,7 @@ public class AIPlayer: Player
         return card;
     }
 
-    protected override void Show()
+    public override void Show()
     {
-        var showLine = "";
-        for (var index = 0; index < Hand.Cards.Count; index++)
-        {
-            var card = Hand.Cards[index].ToString();
-            showLine += card + "[" + index + "]" + " ";
-        }
-
-        // 這邊暫時寫著因為 AI 不會顯示正常，Debug 用
-        Console.WriteLine(Name + "的手牌：" + showLine);
     }
 }

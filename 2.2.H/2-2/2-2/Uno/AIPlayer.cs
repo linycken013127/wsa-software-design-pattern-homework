@@ -7,7 +7,7 @@ public class AIPlayer: Player
         Name = "AI" + new Random().Next(10, 99);
     }
 
-    public override Card SelectCard(Card? topCard, Game game)
+    public override Card SelectCard(Card topCard, Game game)
     {
         foreach (var card in Hand.Cards)
         {

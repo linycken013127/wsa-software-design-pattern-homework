@@ -17,13 +17,20 @@ public class Game: Framework.Game<Player, Card>
     {
         if (Turn <= TotalTurn) return false;
         
+        foreach (var player in Players)
+        {
+            Console.WriteLine(player.Name + "得分: " + player.Point);
+        }
+        
         Console.WriteLine("贏家：" + Winner.Name);
         return true;
     }
 
     protected override void Play(Player player)
     {
-        TurnCards.Add(player, player.Turn());
+        Console.WriteLine("輪到" + player.Name + "了");
+        player.Show();
+        TurnCards.Add(player, player.SelectCard());
     }
 
     protected override void FirstTurn()
@@ -36,7 +43,6 @@ public class Game: Framework.Game<Player, Card>
         Console.WriteLine("第" + Turn + "回合");
     }
 
-    // todo 要被重構
     protected override void EndTurn()
     {
         var topCard = null as Card;
@@ -44,7 +50,6 @@ public class Game: Framework.Game<Player, Card>
         foreach (var playerCard in TurnCards)
         {
             var card = playerCard.Value;
-            Console.WriteLine("計算: Player: " + playerCard.Key.Name + " played " + card);
             if (topCard == null || card.CompareTo(topCard) > 0)
             {
                 topCard = card;
@@ -54,10 +59,6 @@ public class Game: Framework.Game<Player, Card>
         Console.WriteLine("當局贏家: " + turnWinner.Name);
         turnWinner.GainPoint();
 
-        foreach (var player in Players)
-        {
-            Console.WriteLine("Player: " + player.Name + " has " + player.Point + " points");
-        }
         Winner = Players.OrderByDescending(player => player.Point).First();
         
         TurnCards.Clear();

@@ -57,5 +57,6 @@ public abstract class Game<TPlayer, TCard>
     protected abstract void StartTurn();
 
     protected abstract void EndTurn();
+    
     protected abstract bool GameOver();
 }

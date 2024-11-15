@@ -12,7 +12,7 @@ public class HumanPlayer: Player
     {
         Console.WriteLine("請選擇一張牌");
 
-        var index = int.Parse(InputSelectIndex());
+        var index = InputSelectIndex();
         var card = Hand.Cards[index];
         Hand.Cards.RemoveAt(index);
 
@@ -24,9 +24,9 @@ public class HumanPlayer: Player
         return card;
     }
 
-    private string InputSelectIndex()
+    private int InputSelectIndex()
     {
-        return Console.ReadLine() ?? throw new InvalidOperationException();
+        return int.Parse(Console.ReadLine() ?? throw new InvalidOperationException());
     }
 
     public override void Show()
