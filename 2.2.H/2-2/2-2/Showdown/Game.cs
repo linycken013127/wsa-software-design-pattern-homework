@@ -43,22 +43,22 @@ public class Game: Framework.Game<Player, Card>
         var turnWinner = null as Player;
         foreach (var playerCard in TurnCards)
         {
-            var card = (Card)playerCard.Value;
+            var card = playerCard.Value;
             Console.WriteLine("計算: Player: " + playerCard.Key.Name + " played " + card);
             if (topCard == null || card.CompareTo(topCard) > 0)
             {
                 topCard = card;
-                turnWinner = (Player)playerCard.Key;
+                turnWinner = playerCard.Key;
             }
         }
         Console.WriteLine("當局贏家: " + turnWinner.Name);
         turnWinner.GainPoint();
 
-        foreach (var player in Players.Cast<Player>())
+        foreach (var player in Players)
         {
             Console.WriteLine("Player: " + player.Name + " has " + player.Point + " points");
         }
-        Winner = Players.Cast<Player>().OrderByDescending(player => player.Point).First();
+        Winner = Players.OrderByDescending(player => player.Point).First();
         
         TurnCards.Clear();
         Turn++;

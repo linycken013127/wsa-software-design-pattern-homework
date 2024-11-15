@@ -6,11 +6,11 @@ public class Deck: _2_2.Framework.Deck<Card>
     
     public override void Init()
     {
-        foreach (var rank in Enum.GetValues(typeof(Rank)))
+        foreach (var rank in Enum.GetValues<Rank>())
         {
-            foreach (var suit in Enum.GetValues(typeof(Color)))
+            foreach (var suit in Enum.GetValues<Color>())
             {
-                AddCard(new Card((Rank)rank, (Color)suit));
+                AddCard(new Card(rank, suit));
             }
         }
     }
