@@ -20,7 +20,7 @@ public class Game: Framework.Game<Player, Card>
         return true;
     }
 
-    protected override void Play(Player player)
+    protected override void TakeTurn(Player player)
     {
         Console.WriteLine("輪到" + player.Name + "了");
         if (CheckCanPlay(player))
@@ -32,7 +32,7 @@ public class Game: Framework.Game<Player, Card>
         else
         {
             PlayerDraw(player);
-            Play(player);
+            TakeTurn(player);
         }
     }
 

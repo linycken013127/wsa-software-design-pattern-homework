@@ -13,20 +13,7 @@ public class Game: Framework.Game<Player, Card>
         Deck = new Deck();
     }
 
-    protected override bool GameOver()
-    {
-        if (Turn <= TotalTurn) return false;
-        
-        foreach (var player in Players)
-        {
-            Console.WriteLine(player.Name + "得分: " + player.Point);
-        }
-        
-        Console.WriteLine("贏家：" + Winner.Name);
-        return true;
-    }
-
-    protected override void Play(Player player)
+    protected override void TakeTurn(Player player)
     {
         Console.WriteLine("輪到" + player.Name + "了");
         player.Show();
@@ -58,10 +45,23 @@ public class Game: Framework.Game<Player, Card>
         }
         Console.WriteLine("當局贏家: " + turnWinner.Name);
         turnWinner.GainPoint();
-
-        Winner = Players.OrderByDescending(player => player.Point).First();
         
         TurnCards.Clear();
         Turn++;
+    }
+
+    protected override bool GameOver()
+    {
+        if (Turn <= TotalTurn) return false;
+        
+        foreach (var player in Players)
+        {
+            Console.WriteLine(player.Name + "得分: " + player.Point);
+        }
+        
+        Winner = Players.OrderByDescending(player => player.Point).First();
+        
+        Console.WriteLine("贏家：" + Winner.Name);
+        return true;
     }
 }

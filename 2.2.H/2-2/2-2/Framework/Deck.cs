@@ -2,7 +2,7 @@ namespace _2_2.Framework;
 
 public abstract class Deck<TCard>
 {
-    public List<TCard> Cards { get; set; } = new List<TCard>();
+    public List<TCard> Cards { get; set; } = new();
     public abstract int StartDrawCount { get; }
 
     public void Shuffle()

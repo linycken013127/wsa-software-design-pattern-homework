@@ -13,7 +13,7 @@ public abstract class Game<TPlayer, TCard>
         NameHimself();
         Deck.Shuffle();
         Draw();
-        TakeTurn();
+        ExecuteTurn();
     }
 
     private void NameHimself()
@@ -36,7 +36,7 @@ public abstract class Game<TPlayer, TCard>
         }
     }
 
-    private void TakeTurn()
+    private void ExecuteTurn()
     {
         FirstTurn();
         while (!GameOver())
@@ -44,13 +44,13 @@ public abstract class Game<TPlayer, TCard>
             StartTurn();
             foreach (var player in Players)
             {
-                Play(player);
+                TakeTurn(player);
             }
             EndTurn();
         }
     }
 
-    protected abstract void Play(TPlayer player);
+    protected abstract void TakeTurn(TPlayer player);
 
     protected abstract void FirstTurn();
 
