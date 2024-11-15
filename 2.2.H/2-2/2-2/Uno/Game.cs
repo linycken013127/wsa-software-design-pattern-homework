@@ -6,8 +6,8 @@ public class Game: Framework.Game<Player, Card>
         
     public Game(List<Player> players)
     {
-        Players = players.ToList();
-        foreach (var player in Players.Cast<Player>())
+        Players = players;
+        foreach (var player in Players)
         {
             player.Game = this;
         }
@@ -16,7 +16,7 @@ public class Game: Framework.Game<Player, Card>
 
     protected override bool GameOver()
     {
-        var winner = Players.Cast<Player>().FirstOrDefault(player => player.Hand.Cards.Count == 0);
+        var winner = Players.FirstOrDefault(player => player.Hand.Cards.Count == 0);
         if (winner == null) return false;
         
         Console.WriteLine("贏家: " + winner.Name);
@@ -59,7 +59,7 @@ public class Game: Framework.Game<Player, Card>
             Deck.Shuffle();
         }
         var card = Deck.Draw();
-        Console.WriteLine("抽了一張牌: " + card);
+        Console.WriteLine("抽了一張牌");
         return card;
     }
 }

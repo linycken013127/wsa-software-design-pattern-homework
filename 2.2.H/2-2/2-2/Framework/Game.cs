@@ -5,8 +5,7 @@ public abstract class Game<TPlayer, TCard>
 {
     protected List<TPlayer> Players { get; set; }
     protected Deck<TCard> Deck { get; set; }
-
-    protected Dictionary<TPlayer, TCard> TurnCards { get; set; } = new();
+    protected Dictionary<TPlayer, TCard> TurnCards { get; } = new();
 
     public void Start()
     {
@@ -16,8 +15,6 @@ public abstract class Game<TPlayer, TCard>
         Draw();
         TakeTurn();
     }
-
-    protected abstract bool GameOver();
 
     private void NameHimself()
     {
@@ -60,4 +57,5 @@ public abstract class Game<TPlayer, TCard>
     protected abstract void StartTurn();
 
     protected abstract void EndTurn();
+    protected abstract bool GameOver();
 }

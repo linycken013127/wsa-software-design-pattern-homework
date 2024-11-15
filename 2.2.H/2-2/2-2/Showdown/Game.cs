@@ -2,14 +2,14 @@ namespace _2_2.Showdown;
 
 public class Game: Framework.Game<Player, Card>
 {
-    public int Turn { get; set; } = 1;
-    const int TotalTurn = 13;
+    private int Turn { get; set; } = 1;
+    private const int TotalTurn = 13;
 
-    public Player? Winner { get; set; }
+    private Player? Winner { get; set; }
     
     public Game(List<Player> players)
     {
-        Players = players.ToList();
+        Players = players;
         Deck = new Deck();
     }
 
