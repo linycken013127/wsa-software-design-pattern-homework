@@ -1,6 +1,6 @@
 namespace _2_2.Showdown;
 
-public class Deck: _2_2.Framework.Deck
+public class Deck: Framework.Deck<Card>
 {
     public override int StartDrawCount => 13;
 

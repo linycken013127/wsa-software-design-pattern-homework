@@ -1,8 +1,8 @@
 namespace _2_2.Framework;
 
-public abstract class Deck
+public abstract class Deck<TCard>
 {
-    public List<ICard> Cards { get; set; } = new List<ICard>();
+    public List<TCard> Cards { get; set; } = new List<TCard>();
     public abstract int StartDrawCount { get; }
 
     public void Shuffle()
@@ -11,22 +11,21 @@ public abstract class Deck
         Cards = Cards.OrderBy(x => rnd.Next()).ToList();
     }
 
-    public ICard Draw()
+    public TCard Draw()
     {
         if (Cards.Count == 0)
         {
-            return null;
+            throw new Exception("牌已經抽完了");
         }
         var card = Cards[0];
         Cards.RemoveAt(0);
         return card;
     }
 
-    public void AddCard(ICard card)
+    public void AddCard(TCard card)
     {
         Cards.Add(card);
     }
 
-    // force 兩個遊戲重複
     public abstract void Init();
 }

@@ -1,14 +1,12 @@
-using _2_2.Framework;
-
 namespace _2_2.Uno;
 
-public class Game: _2_2.Framework.Game
+public class Game: Framework.Game<Player, Card>
 {
     public Card TopCard { get; set; } 
         
     public Game(List<Player> players)
     {
-        Players = players.Cast<Framework.IPlayer>().ToList();
+        Players = players.ToList();
         foreach (var player in Players.Cast<Player>())
         {
             player.Game = this;
@@ -25,15 +23,15 @@ public class Game: _2_2.Framework.Game
         return true;
     }
 
-    protected override void Play(IPlayer player)
+    protected override void Play(Player player)
     {
         var card = player.Turn();
-        TopCard = (Card)card;
+        TopCard = card;
     }
 
     protected override void FirstTurn()
     {
-        TopCard = (Card)Deck.Draw();
+        TopCard = Deck.Draw();
     }
 
     protected override void StartTurn()
@@ -60,7 +58,7 @@ public class Game: _2_2.Framework.Game
             Deck.Init(); // todo 要重置牌面
             Deck.Shuffle();
         }
-        var card = (Card)Deck.Draw();
+        var card = Deck.Draw();
         Console.WriteLine("抽了一張牌: " + card);
         return card;
     }

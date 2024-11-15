@@ -2,15 +2,11 @@ using _2_2.Framework;
 
 namespace _2_2.Showdown;
 
-public abstract class Player : IPlayer
+public abstract class Player : Player<Card>
 {
-    public Hand Hand { get; }= new();
-    public string Name { get; set; }
     public int Point { get; private set; }
-    
-    public abstract void NameHimself();
 
-    public ICard Turn()
+    public override Card Turn()
     {
         Console.WriteLine("輪到" + Name + "了");
         Show();
@@ -21,7 +17,6 @@ public abstract class Player : IPlayer
     protected abstract Card SelectCard();
 
     protected abstract void Show();
-
 
     public void GainPoint()
     {

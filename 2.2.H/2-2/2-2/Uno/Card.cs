@@ -1,6 +1,6 @@
 namespace _2_2.Uno;
 
-public record Card(Rank Rank, Color Color) : Framework.ICard
+public record Card(Rank Rank, Color Color)
 {
     public Rank Rank { get; } = Rank;
     public Color Color { get; } = Color;

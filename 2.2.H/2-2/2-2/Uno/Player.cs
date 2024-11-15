@@ -1,16 +1,11 @@
-using _2_2.Framework;
-
 namespace _2_2.Uno;
 
-public abstract class Player: IPlayer
+public abstract class Player: Framework.Player<Card>
 {
     public Game Game { get; set; }
-    public Hand Hand { get; } = new();
-    public string Name { get; set; }
-    public abstract void NameHimself();
 
     // force 重複
-    public ICard Turn()
+    public override Card Turn()
     {
         Console.WriteLine("輪到" + Name + "了");
         Show();

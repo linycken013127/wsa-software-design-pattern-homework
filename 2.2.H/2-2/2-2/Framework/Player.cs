@@ -1,13 +1,12 @@
 namespace _2_2.Framework;
 
 
-public interface IPlayer
+public abstract class Player<TCard>
 {
+    public string Name { get; set; }
+    public Hand<TCard> Hand { get; } = new();
 
-    Hand Hand { get; }
-    string Name { get; set; }
+    public abstract void NameHimself();
 
-    void NameHimself();
-
-    public ICard Turn();
+    public abstract TCard Turn();
 }

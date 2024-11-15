@@ -1,11 +1,12 @@
 namespace _2_2.Framework;
 
-public abstract class Game
+public abstract class Game<TPlayer, TCard>
+        where TPlayer : Player<TCard>
 {
-    public List<IPlayer> Players { get; set; }
-    public Deck Deck { get; set; }
-    
-    public Dictionary<IPlayer, ICard> TurnCards { get; set; } = new();
+    protected List<TPlayer> Players { get; set; }
+    protected Deck<TCard> Deck { get; set; }
+
+    protected Dictionary<TPlayer, TCard> TurnCards { get; set; } = new();
 
     public void Start()
     {
@@ -31,7 +32,6 @@ public abstract class Game
     {
         for (var i = 0; i < Deck.StartDrawCount; i++)
         {
-            // force
             foreach (var player in Players)
             {
                 player.Hand.AddCard(Deck.Draw());
@@ -39,14 +39,12 @@ public abstract class Game
         }
     }
 
-    // 主要流程
     private void TakeTurn()
     {
         FirstTurn();
         while (!GameOver())
         {
             StartTurn();
-            // force
             foreach (var player in Players)
             {
                 Play(player);
@@ -55,7 +53,7 @@ public abstract class Game
         }
     }
 
-    protected abstract void Play(IPlayer player);
+    protected abstract void Play(TPlayer player);
 
     protected abstract void FirstTurn();
 

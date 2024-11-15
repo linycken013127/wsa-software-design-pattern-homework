@@ -1,8 +1,6 @@
-using _2_2.Framework;
-
 namespace _2_2.Showdown;
 
-public class Game : _2_2.Framework.Game
+public class Game: Framework.Game<Player, Card>
 {
     public int Turn { get; set; } = 1;
     const int TotalTurn = 13;
@@ -11,7 +9,7 @@ public class Game : _2_2.Framework.Game
     
     public Game(List<Player> players)
     {
-        Players = players.Cast<IPlayer>().ToList();
+        Players = players.ToList();
         Deck = new Deck();
     }
 
@@ -23,7 +21,7 @@ public class Game : _2_2.Framework.Game
         return true;
     }
 
-    protected override void Play(IPlayer player)
+    protected override void Play(Player player)
     {
         TurnCards.Add(player, player.Turn());
     }
@@ -38,6 +36,7 @@ public class Game : _2_2.Framework.Game
         Console.WriteLine("第" + Turn + "回合");
     }
 
+    // todo 要被重構
     protected override void EndTurn()
     {
         var topCard = null as Card;
