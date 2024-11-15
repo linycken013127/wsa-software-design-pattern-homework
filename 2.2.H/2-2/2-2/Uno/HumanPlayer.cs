@@ -14,13 +14,14 @@ public class HumanPlayer: Player
 
         var index = InputSelectIndex();
         var card = Hand.Cards[index];
-        Hand.Cards.RemoveAt(index);
 
         if (!game.RuleCheck(card))
         {
             Console.WriteLine("不符合規則，重新出牌");
+            Show();
             return SelectCard(topCard, game);
         }
+        Hand.Cards.RemoveAt(index);
         return card;
     }
 

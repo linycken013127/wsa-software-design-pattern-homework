@@ -14,6 +14,7 @@ public class AIPlayer: Player
             if (game.RuleCheck(card))
             {
                 Hand.Cards.Remove(card);
+                Console.WriteLine(Name + " 出牌: " + card);
                 return card;
             }
         }
