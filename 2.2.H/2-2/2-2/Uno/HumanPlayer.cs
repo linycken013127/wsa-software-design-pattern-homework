@@ -8,35 +8,20 @@ public class HumanPlayer: Player
         Name = Console.ReadLine() ?? throw new InvalidOperationException();
     }
     
-    protected override Card SelectCard()
+    public override Card SelectCard(Card topCard, Game game)
     {
-        Console.WriteLine("請選擇一張牌或按D抽牌");
+        Console.WriteLine("請選擇一張牌");
 
-        // force func 內重複
-        var action = InputSelectIndex();
-        if (action == "D" || action == "d")
+        var index = int.Parse(InputSelectIndex());
+        var card = Hand.Cards[index];
+        Hand.Cards.RemoveAt(index);
+
+        if (!game.RuleCheck(card))
         {
-            return AutoDraw();
+            Console.WriteLine("不符合規則，重新出牌");
+            return SelectCard(topCard, game);
         }
-        var index = int.Parse(action);
-        while (CheckHandCardRange(index) || !Game.RuleCheck((Card)Hand.Cards[index]))
-        {
-            Console.WriteLine("請輸入正確的數字");
-            action = InputSelectIndex();
-            if (action == "D" || action == "d")
-            {
-                return AutoDraw();
-            }
-        }
-        
-        var card = (Card)Hand.Cards[index];
-        Hand.Cards.RemoveAt(index); // 移除該卡片以避免重複抽取
         return card;
-    }
-
-    private bool CheckHandCardRange(int index)
-    {
-        return index < 0 || index >= Hand.Cards.Count;
     }
 
     private string InputSelectIndex()
@@ -44,8 +29,7 @@ public class HumanPlayer: Player
         return Console.ReadLine() ?? throw new InvalidOperationException();
     }
 
-    // force 重複
-    protected override void Show()
+    public override void Show()
     {
         var showLine = "";
         for (var index = 0; index < Hand.Cards.Count; index++)
@@ -56,5 +40,4 @@ public class HumanPlayer: Player
 
         Console.WriteLine(showLine);
     }
-    
 }

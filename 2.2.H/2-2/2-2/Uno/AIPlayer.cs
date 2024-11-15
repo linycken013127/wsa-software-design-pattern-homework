@@ -4,35 +4,24 @@ public class AIPlayer: Player
 {
     public override void NameHimself()
     {
-        // force 重複
         Name = "AI" + new Random().Next(10, 99);
     }
 
-    protected override Card SelectCard()
+    public override Card SelectCard(Card? topCard, Game game)
     {
-        for (var index = 0; index < Hand.Cards.Count; index++)
+        foreach (var card in Hand.Cards)
         {
-            var card = (Card)Hand.Cards[index];
-            if (card.Color == Game.TopCard.Color || card.Rank == Game.TopCard.Rank)
+            if (game.RuleCheck(card))
             {
-                Hand.Cards.RemoveAt(index);
+                Hand.Cards.Remove(card);
                 return card;
             }
         }
 
-        return AutoDraw();
+        throw new Exception("AIPlayer: No card can be played");
     }
-    
-    // debug 可清空
-    protected override void Show()
-    {
-        var showLine = "";
-        for (var index = 0; index < Hand.Cards.Count; index++)
-        {
-            var card = Hand.Cards[index].ToString();
-            showLine += card + "[" + index + "]" + " ";
-        }
 
-        Console.WriteLine(showLine);
+    public override void Show()
+    {
     }
 }

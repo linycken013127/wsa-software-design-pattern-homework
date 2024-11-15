@@ -7,6 +7,4 @@ public abstract class Player<TCard>
     public Hand<TCard> Hand { get; } = new();
 
     public abstract void NameHimself();
-
-    public abstract TCard Turn();
 }

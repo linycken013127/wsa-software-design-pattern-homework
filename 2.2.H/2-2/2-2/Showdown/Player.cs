@@ -6,7 +6,7 @@ public abstract class Player : Player<Card>
 {
     public int Point { get; private set; }
 
-    public override Card Turn()
+    public Card Turn()
     {
         Console.WriteLine("輪到" + Name + "了");
         Show();

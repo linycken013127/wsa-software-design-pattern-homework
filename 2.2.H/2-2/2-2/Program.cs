@@ -21,7 +21,7 @@ if (selectGame == "1")
     game.Start();
 } else if (selectGame == "2")
 {
-    var p1 = new unoHumanPlayer();
+    var p1 = new unoAIPlayer();
     var p2 = new unoAIPlayer();
     var p3 = new unoAIPlayer();
     var p4 = new unoAIPlayer();
