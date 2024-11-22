@@ -1,0 +1,36 @@
+2024-05-15 18:10:06.277 |-INFO app.game - The game begins.
+2024-05-15 18:10:06.287 |-TRACE app.game.ai - AI 1 starts making decisions...
+2024-05-15 18:10:06.288 |-WARN app.game.ai - AI 1 decides to give up.
+2024-05-15 18:10:06.288 |-ERROR app.game.ai - Something goes wrong when AI gives up.
+2024-05-15 18:10:06.288 |-TRACE app.game.ai - AI 1 completes its decision.
+2024-05-15 18:10:06.290 |-TRACE app.game.ai - AI 2 starts making decisions...
+2024-05-15 18:10:06.290 |-WARN app.game.ai - AI 2 decides to give up.
+2024-05-15 18:10:06.291 |-ERROR app.game.ai - Something goes wrong when AI gives up.
+2024-05-15 18:10:06.291 |-TRACE app.game.ai - AI 2 completes its decision.
+2024-05-15 18:10:06.291 |-TRACE app.game.ai - AI 3 starts making decisions...
+2024-05-15 18:10:06.291 |-WARN app.game.ai - AI 3 decides to give up.
+2024-05-15 18:10:06.291 |-ERROR app.game.ai - Something goes wrong when AI gives up.
+2024-05-15 18:10:06.291 |-TRACE app.game.ai - AI 3 completes its decision.
+2024-05-15 18:10:06.292 |-TRACE app.game.ai - AI 4 starts making decisions...
+2024-05-15 18:10:06.292 |-WARN app.game.ai - AI 4 decides to give up.
+2024-05-15 18:10:06.292 |-ERROR app.game.ai - Something goes wrong when AI gives up.
+2024-05-15 18:10:06.292 |-TRACE app.game.ai - AI 4 completes its decision.
+2024-05-15 18:10:06.293 |-DEBUG app.game - Game ends.
+2024-05-15 20:19:34.458 |-INFO app.game - The game begins.
+2024-05-15 20:19:34.469 |-TRACE app.game.ai - AI 1 starts making decisions...
+2024-05-15 20:19:34.470 |-WARN app.game.ai - AI 1 decides to give up.
+2024-05-15 20:19:34.470 |-ERROR app.game.ai - Something goes wrong when AI gives up.
+2024-05-15 20:19:34.470 |-TRACE app.game.ai - AI 1 completes its decision.
+2024-05-15 20:19:34.470 |-TRACE app.game.ai - AI 2 starts making decisions...
+2024-05-15 20:19:34.471 |-WARN app.game.ai - AI 2 decides to give up.
+2024-05-15 20:19:34.472 |-ERROR app.game.ai - Something goes wrong when AI gives up.
+2024-05-15 20:19:34.473 |-TRACE app.game.ai - AI 2 completes its decision.
+2024-05-15 20:19:34.473 |-TRACE app.game.ai - AI 3 starts making decisions...
+2024-05-15 20:19:34.473 |-WARN app.game.ai - AI 3 decides to give up.
+2024-05-15 20:19:34.473 |-ERROR app.game.ai - Something goes wrong when AI gives up.
+2024-05-15 20:19:34.473 |-TRACE app.game.ai - AI 3 completes its decision.
+2024-05-15 20:19:34.474 |-TRACE app.game.ai - AI 4 starts making decisions...
+2024-05-15 20:19:34.474 |-WARN app.game.ai - AI 4 decides to give up.
+2024-05-15 20:19:34.474 |-ERROR app.game.ai - Something goes wrong when AI gives up.
+2024-05-15 20:19:34.474 |-TRACE app.game.ai - AI 4 completes its decision.
+2024-05-15 20:19:34.474 |-DEBUG app.game - Game ends.
