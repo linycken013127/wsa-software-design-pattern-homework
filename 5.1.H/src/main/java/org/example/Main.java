@@ -2,7 +2,7 @@ package org.example;
 
 import org.example.domain.Model;
 import org.example.domain.Models;
-import org.example.domain.ModelsImpl;
+import org.example.domain.ConcreteModels;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.stream.IntStream;
 public class Main {
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
-        Models models = new ModelsImpl();
+        Models models = new ConcreteModels();
         List<String> modelNames = Arrays.asList("data/Reflection.mat", "data/Scaling.mat", "data/Shrinking.mat");
 
         double[] inputArray = new double[1000];
