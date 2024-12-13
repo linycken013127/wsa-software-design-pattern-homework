@@ -29,12 +29,6 @@ public class Main {
         CompletableFuture.allOf(futures).join();
         System.out.println("All tasks completed.");
 
-//        for (int i = 0; i < 100; i++) {
-//            Model model1 = models.createModel(modelNames.get(i % 3));
-//            double[] r1 = model1.calculate(inputArray);
-//            System.out.println("Task " + i + ": " + Arrays.toString(r1));
-//        }
-
         long endTime = System.currentTimeMillis();
         System.out.println("Total time: " + (endTime - startTime) + "ms");
     }

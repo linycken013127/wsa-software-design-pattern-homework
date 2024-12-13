@@ -5,7 +5,6 @@ public class SingletonModel implements Model {
     private String name;
     private double[][] matrix;
     private Models models;
-    private final Object lock = new Object();
 
     private SingletonModel() {
     }
@@ -15,32 +14,21 @@ public class SingletonModel implements Model {
     }
 
     @Override
-    public double[] calculate(double[] vector) {
-        synchronized (lock) {
-            int rows = matrix.length;
-            int cols = matrix[0].length;
+    public synchronized double[] calculate(double[] vector) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
 
-            if (vector.length != cols) {
-                throw new IllegalArgumentException("向量的大小必須等於矩陣的列數！");
+        if (vector.length != cols) {
+            throw new IllegalArgumentException("向量的大小必須等於矩陣！");
+        }
+
+        double[] result = new double[rows];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                result[i] += matrix[i][j] * vector[j];
             }
-
-            double[] result = new double[rows];
-            for (int i = 0; i < rows; i++) {
-                for (int j = 0; j < cols; j++) {
-                    result[i] += matrix[i][j] * vector[j];
-                }
-            }
-            return result;
         }
-    }
-
-    public void change(String name) {
-        if (name != null && name.equals(this.name)) {
-            return;
-        }
-        synchronized (lock) {
-            this.name = name;
-        }
+        return result;
     }
 
     protected void initMatrix(String name) {
@@ -48,10 +36,12 @@ public class SingletonModel implements Model {
             return;
         }
 
-        synchronized (lock) {
-            matrix = models.initModel(name);
-            this.name = name;
-        }
+        updateMatrix(name);
+    }
+
+    private synchronized void updateMatrix(String name) {
+        matrix = models.initModel(name);
+        this.name = name;
     }
 
     public void setModels(Models models) {
