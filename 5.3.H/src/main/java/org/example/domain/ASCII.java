@@ -27,14 +27,15 @@ public class ASCII {
         // close: button
 //        Button button = theme.createButton(x, y, text, paddingWidth, paddingHeight);
 
+        uis.add(theme.getFactory().createButton(x, y, text, paddingWidth, paddingHeight));
     }
 
     public void addNumberedList(int x, int y, List<String> lines) {
-        uis.add(new NumberedList(x, y, lines));
+        uis.add(theme.getFactory().createNumberedList(x, y, lines));
     }
 
     public void addText(int x, int y, String text) {
-        uis.add(new Text(x, y, text));
+        uis.add(theme.getFactory().createText(x, y, text));
     }
 
     public void render() {
@@ -46,7 +47,7 @@ public class ASCII {
         }
 
         for (UI ui : uis) {
-            theme.renderUI(canvas, ui);
+            ui.render(canvas);
         }
 
         for (char[] row : canvas) {

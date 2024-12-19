@@ -16,4 +16,6 @@ public abstract class UI {
     public int getY() {
         return y;
     }
+
+    public abstract void render(char[][] canvas);
 }
